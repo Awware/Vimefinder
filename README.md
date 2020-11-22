@@ -1,4 +1,6 @@
 # Vimefinder
+## Demo
+![Image alt](demo/demo.png)
 
 ## Project setup
 ```
