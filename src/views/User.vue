@@ -18,9 +18,6 @@
                         <b-tab title="Матчи">
 
                         </b-tab>
-                        <b-tab disabled title="Деанон">
-
-                        </b-tab>
                     </b-tabs>
                 </b-card>
             </b-col>
