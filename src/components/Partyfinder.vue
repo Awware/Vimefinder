@@ -4,7 +4,7 @@
             <template #footer>
                 <div class="text-center">
                 <button class="btn btn-outline-secondary p-1" @click="update"
-                        :disabled="loading">Обновить</button>
+                        :disabled="loading">Получить</button>
                         </div>
             </template>
             <Loader v-if="loading" />
