@@ -1,6 +1,8 @@
 # Vimefinder
-## Demo
+## Demo session
 ![Image alt](demo/demo.png)
+
+## Demo 'partyfinder'
 
 ## Project setup
 ```
