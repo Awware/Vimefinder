@@ -20,7 +20,7 @@
 
                         </span>
                         |
-                        Уровень: <span class="font-weight-bold"
+                        LVL: <span class="font-weight-bold"
                             :style="{color: user.level > 20 ? '#BE5656' : '#656565'}">{{user.level}}</span>
                     </div>
                 </b-list-group-item>
@@ -97,7 +97,7 @@
 
 <style scoped>
     .profile-nick {
-        text-decoration: underline;
+        text-decoration: none;
         font-size: 18px;
     }
 

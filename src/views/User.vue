@@ -12,11 +12,17 @@
                     <b-tabs card>
                         <b-tab class="nav-tabs" title="Друзья" active>
                             <b-row cols="4" v-cloak>
-                                <Friend v-for="friend in user.friends" :key="friend.id" :friend="friend" />
+                                <Person v-for="person in user.friends" :key="person.id" :person="person" />
                             </b-row>
                         </b-tab>
                         <b-tab title="Матчи">
                             <b-alert show variant="warning" class="text-center">Soon</b-alert>
+                        </b-tab>
+                        <b-tab title="Гильдия" :disabled="!user.guild">
+
+                        </b-tab>
+                        <b-tab title="Доп. информация" :disabled="!serverData.received">
+
                         </b-tab>
                     </b-tabs>
                 </b-card>
@@ -29,7 +35,7 @@
     import Session from "@/components/Session"
     import Loader from "@/components/Loader"
     import Partyfinder from "@/components/Partyfinder"
-    import Friend from "@/components/Friend"
+    import Person from "@/components/Person"
     import {
         request
     } from "@/request"
@@ -38,14 +44,17 @@
             Loader,
             Session,
             Partyfinder,
-            Friend
+            Person
         },
         data() {
             return {
                 loading: true,
                 error: '',
                 username: '',
-                user: {}
+                user: {},
+                serverData: {
+                    received: false
+                }
             }
         },
         computed: {

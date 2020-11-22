@@ -3,12 +3,12 @@
         <b-card style="height: 6rem; width:10.5rem; margin: 5px;">
             <b-card-body style="padding: 0;">
                 <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
-                    <img width="32px" :src="`https://skin.vimeworld.ru/head/${friend.username}.png?_=16057785`" alt="">
-                    <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${friend.username}.png?_=16057785)`}"></div>
+                    <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
+                    <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
                 </div>
                 <div style="text-align:center;">
-                    <router-link class="font-weight-bold" :style="style_color" :to="`/user/${friend.username}`">
-                    {{friend.username}}</router-link>
+                    <router-link class="font-weight-bold" :style="style_color" :to="`/user/${person.username}`">
+                    {{person.username}}</router-link>
                 </div>
             </b-card-body>
         </b-card>
@@ -27,16 +27,16 @@ export default {
         }
     },
     props:{
-        friend:{
+        person:{
             type:Object,
             required:true
         }
     },
     mounted() {
-        if(this.friend.username.length <= 13){
+        if(this.person.username.length <= 13){
             this.style_color.fontSize = '14px';
         }
-        this.style_color = GetColorByRank(this.friend.rank, this.style_color)
+        this.style_color = GetColorByRank(this.person.rank, this.style_color)
     }
 }
 </script>
