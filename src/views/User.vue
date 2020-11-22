@@ -16,7 +16,7 @@
                             </b-row>
                         </b-tab>
                         <b-tab title="Матчи">
-
+                            <b-alert show variant="warning" class="text-center">Soon</b-alert>
                         </b-tab>
                     </b-tabs>
                 </b-card>
@@ -60,7 +60,7 @@ export default {
             
             console.log(this.username);
 
-            let rawUser = await request(`https://api.vimeworld.ru/user/name/${this.username}`)
+            let rawUser = await request(`http://localhost:5000/api/user/${this.username}`)
 
             rawUser = rawUser[0]
 
@@ -71,7 +71,7 @@ export default {
                 this.user.level = rawUser['level']
                 this.user.id = rawUser['id']
 
-                const session = await request(`https://api.vimeworld.ru/user/${this.user.id}/session`)
+                const session = await request(`http://localhost:5000/api/user/${this.user.id}/session`)
                 this.user.rawSession = session
                 this.user.online = session.online.value
                 this.user.online_message = session.online.message
@@ -79,7 +79,7 @@ export default {
                 this.user.hours = (session.user.playedSeconds / 60 / 60).toFixed(1)
                 this.user.guild = session.user.guild
 
-                const userFriends = await request(`https://api.vimeworld.ru/user/${this.user.id}/friends`)
+                const userFriends = await request(`http://localhost:5000/api/user/${this.user.id}/friends`)
                 this.user.friends = userFriends.friends
             }
             else

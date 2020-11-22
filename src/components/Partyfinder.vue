@@ -49,7 +49,7 @@
         methods: {
             async update() {
                 this.loading = true
-                const rawResponse = await request(`http://localhost:5000/api/user/${this.user.id}`, 'POST')
+                const rawResponse = await request(`http://localhost:5000/api/user/${this.user.id}/party`)
                 if (rawResponse.message) {
                     this.error = rawResponse.message
                 } else {
