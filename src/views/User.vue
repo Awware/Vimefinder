@@ -90,12 +90,12 @@ export default {
         }
     },
     watch:{
-        getFullPath() {
-            this.update()
+        async getFullPath() {
+            await this.update()
         }
     },
-    mounted(){
-        this.update()
+    async mounted(){
+        await this.update()
     }
 }
 </script>
