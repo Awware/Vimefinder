@@ -1,4 +1,4 @@
-# client
+# Vimefinder
 
 ## Project setup
 ```
