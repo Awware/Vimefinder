@@ -1,6 +1,5 @@
 <template>
-  <div id="app">
-      <b-container>
+  <b-container id="app">
         <b-navbar type="light" variant="light" class="mb-1">
             <b-navbar-brand to="/">Vimefinder</b-navbar-brand>
             <b-input-group>
@@ -21,8 +20,7 @@
             </b-input-group>
         </b-navbar>
         <router-view/>
-      </b-container>
-  </div>
+  </b-container>
 </template>
 
 <script>

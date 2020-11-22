@@ -5,8 +5,11 @@
             <b-list-group>
                 <b-list-group-item>
                     <div class="face">
-                        <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${user.username}.png?_=16057785)`}"></div>
-                        <img width="64px" :src="`https://skin.vimeworld.ru/head/${user.username}.png?_=16057785`" alt="">
+                        <div class="profile-second-layer"
+                            :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${user.username}.png?_=16057785)`}">
+                        </div>
+                        <img width="64px" :src="`https://skin.vimeworld.ru/head/${user.username}.png?_=16057785`"
+                            alt="">
                     </div>
                     <a class="vimetop_logo" :href="'https://vimetop.ru/player/' + user.username" target="_blank">
                         <img src="https://vimetop.ru/favicon.ico" alt="Vimetop">
@@ -111,7 +114,8 @@
         width: 24px;
         height: 24px;
     }
-    .profile-second-layer{
+
+    .profile-second-layer {
         background-position: -40px -8px;
         position: absolute;
         width: 8px;
@@ -121,10 +125,11 @@
         image-rendering: pixelated;
         transform: scale(9);
     }
-    .face{
-        display:flex;
+
+    .face {
+        display: flex;
         justify-content: center;
-        align-items:center;
-        margin-bottom:3px
+        align-items: center;
+        margin-bottom: 3px
     }
 </style>

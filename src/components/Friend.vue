@@ -7,8 +7,8 @@
                     <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${friend.username}.png?_=16057785)`}"></div>
                 </div>
                 <div style="text-align:center;">
-                    <a class="font-weight-bold" :style="style_color" :href="`/user/${friend.username}`">
-                    {{friend.username}}</a>
+                    <router-link class="font-weight-bold" :style="style_color" :to="`/user/${friend.username}`">
+                    {{friend.username}}</router-link>
                 </div>
             </b-card-body>
         </b-card>
@@ -37,7 +37,6 @@ export default {
             this.style_color.fontSize = '14px';
         }
         this.style_color = GetColorByRank(this.friend.rank, this.style_color)
-        console.log(this.style_color)
     }
 }
 </script>
