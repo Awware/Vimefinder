@@ -3,6 +3,7 @@
 ![Image alt](demo/demo.png)
 
 ## Demo 'partyfinder'
+![Image alt](demo/partyfinder.png)
 
 ## Project setup
 ```
