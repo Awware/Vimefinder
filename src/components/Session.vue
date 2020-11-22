@@ -1,0 +1,130 @@
+<template>
+    <div style="width: 23rem;">
+        <Loader v-if="loading" />
+        <div v-else>
+            <b-list-group>
+                <b-list-group-item>
+                    <div class="face">
+                        <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${user.username}.png?_=16057785)`}"></div>
+                        <img width="64px" :src="`https://skin.vimeworld.ru/head/${user.username}.png?_=16057785`" alt="">
+                    </div>
+                    <a class="vimetop_logo" :href="'https://vimetop.ru/player/' + user.username" target="_blank">
+                        <img src="https://vimetop.ru/favicon.ico" alt="Vimetop">
+                    </a>
+                    <span class="profile-rank font-weight-bold" :style="profile_rank_object">{{user.rank}}</span>
+                    <div class="text-center">
+                        <span class="profile-nick">{{user.username}}
+
+                        </span>
+                        |
+                        Уровень: <span class="font-weight-bold"
+                            :style="{color: user.level > 20 ? '#BE5656' : '#656565'}">{{user.level}}</span>
+                    </div>
+                </b-list-group-item>
+                <b-list-group-item>
+                    ID: <span class="text-success">{{user.id}}</span>
+                </b-list-group-item>
+                <b-list-group-item>
+                    Статус:
+                    <span :style="{color: user.online ? '#4FBC66' : '#D35858'}">{{user.online_message}}</span>
+                </b-list-group-item>
+                <b-list-group-item>
+                    Друзей:
+                    <span class="text-muted">{{user.friends.length}}</span>
+                </b-list-group-item>
+                <b-list-group-item>
+                    Проведено времени в игре:
+                    <span class="text-muted">{{user.hours}}ч.</span>
+                </b-list-group-item>
+                <b-list-group-item>
+                    Последний вход:
+                    <span class="text-muted">{{user.last_seen}}</span>
+                </b-list-group-item>
+                <b-list-group-item>
+                    Гильдия:
+                    <span v-if="user.guild">
+                        <a :href="'/guild/' + user.guild.id">{{user.guild.tag ? `[${user.guild.tag}] |` : ''}}
+                            {{user.guild.name}}</a>
+                    </span>
+                    <span class="text-muted" v-else>
+                        Не состоит в гильдии
+                    </span>
+                </b-list-group-item>
+            </b-list-group>
+        </div>
+    </div>
+</template>
+
+<script>
+    import {
+        GetColorByRank
+    } from "@/coloring"
+    import Loader from "@/components/Loader"
+    export default {
+        components: {
+            Loader
+        },
+        methods: {
+
+        },
+        data() {
+            return {
+                loading: true,
+                profile_rank_object: {
+                    color: '#7D7D7D',
+                    display: 'block',
+                    position: 'absolute',
+                    top: '5px',
+                    fontSize: '22px'
+                }
+            }
+        },
+        mounted() {
+            this.profile_rank_object = GetColorByRank(this.user.rank, this.profile_rank_object)
+            this.loading = false
+        },
+        props: {
+            user: {
+                type: Object,
+                required: true
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .profile-nick {
+        text-decoration: underline;
+        font-size: 18px;
+    }
+
+    .vimetop_logo {
+        position: absolute;
+        display: block;
+        width: 24px;
+        height: 24px;
+        right: 5px;
+        top: 5px;
+    }
+
+    .vimetop_logo img {
+        width: 24px;
+        height: 24px;
+    }
+    .profile-second-layer{
+        background-position: -40px -8px;
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: pixelated;
+        transform: scale(9);
+    }
+    .face{
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        margin-bottom:3px
+    }
+</style>
