@@ -33,9 +33,14 @@
 </template>
 
 <script>
-    import Session from "@/components/Session"
+    //Blocks
+    import Session from "@/components/blocks/Session"
+    import Partyfinder from "@/components/blocks/Partyfinder"
+
+    //Other components
     import Loader from "@/components/Loader"
-    import Partyfinder from "@/components/Partyfinder"
+
+    //Tabs
     import MatchTab from "@/components/tabs/MatchTab"
     import FriendsTab from "@/components/tabs/FriendsTab"
     import {
@@ -55,6 +60,7 @@
                 error: '',
                 username: '',
                 user: {},
+                //todo, additional information
                 serverData: {
                     received: false
                 }
