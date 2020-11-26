@@ -15,12 +15,10 @@
                                 <Person v-for="person in user.friends" :key="person.id" :person="person" />
                             </b-row>
                         </b-tab>
-                        <b-tab title="Матчи" @click="matchFirstLoad" :disabled="loading">
+                        <b-tab title="Матчи" @click="matchesLoad" :disabled="loading">
                             <Loader v-if="matchesLoading"/>
                             <b-row v-else cols="3" v-cloak>
-                                <b-col v-for="match in user.matches" :key="match.id">
-                                    <Match :match="match"/>
-                                </b-col>
+                                <Match v-for="match in user.matches" :key="match.id" :match="match"/>
                                 <b-col md="12" class="text-center mt-2">
                                     <b-button variant="outline-success" @click="loadMoreMatches">Загрузить больше</b-button>
                                 </b-col>
@@ -70,10 +68,7 @@
                     received: false
                 },
                 //matches receive data
-                mrd:{
-                    count: 10,
-                    offset: 0
-                }
+                mrd:{}
             }
         },
         computed: {
@@ -83,6 +78,9 @@
         },
         methods: {
             async update() {
+                this.mrd.count = 10
+                this.mrd.offset = 0
+
                 this.loading = true
                 this.error = ''
                 let arrayOfPaths = window.location.pathname.split('/')
@@ -120,7 +118,8 @@
                 }
                 this.loading = false
             },
-            async matchFirstLoad(){
+            async matchesLoad(){
+                this.matchesLoading = true
                 const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
                 if(matches.request.size){
                     this.user.matches = matches.matches
