@@ -15,8 +15,19 @@
                                 <Person v-for="person in user.friends" :key="person.id" :person="person" />
                             </b-row>
                         </b-tab>
-                        <b-tab title="Матчи">
-                            <b-alert show variant="warning" class="text-center">Soon</b-alert>
+                        <b-tab title="Матчи" @click="matchFirstLoad">
+                            <Loader v-if="matchesLoading"/>
+                            <b-row v-else cols="3" v-cloak>
+                                <b-col v-for="match in user.matches" :key="match.id">
+                                    <Match :match="match"/>
+                                </b-col>
+                                <b-col md="12" class="text-center mt-2">
+                                    <b-button variant="outline-success" @click="loadMoreMatches">Загрузить больше</b-button>
+                                </b-col>
+                            </b-row>
+                        </b-tab>
+                        <b-tab title="Статистика" >
+
                         </b-tab>
                         <b-tab title="Гильдия" :disabled="!user.guild">
 
@@ -36,6 +47,7 @@
     import Loader from "@/components/Loader"
     import Partyfinder from "@/components/Partyfinder"
     import Person from "@/components/Person"
+    import Match from "@/components/Match"
     import {
         request
     } from "@/request"
@@ -44,16 +56,23 @@
             Loader,
             Session,
             Partyfinder,
-            Person
+            Person,
+            Match
         },
         data() {
             return {
+                matchesLoading: true,
                 loading: true,
                 error: '',
                 username: '',
                 user: {},
                 serverData: {
                     received: false
+                },
+                //matches receive data
+                mrd:{
+                    count: 10,
+                    offset: 0
                 }
             }
         },
@@ -100,6 +119,23 @@
                     this.error = 'Игрок не найден!'
                 }
                 this.loading = false
+            },
+            async matchFirstLoad(){
+                const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
+                if(matches.request.size){
+                    this.user.matches = matches.matches
+                    this.mrd.offset += 10
+                }
+                this.matchesLoading = false
+            },
+            async loadMoreMatches(){
+                this.matchesLoading = true
+                const recMatches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
+                if(recMatches.request.size){
+                    Array.prototype.push.apply(this.user.matches, recMatches.matches)
+                    this.mrd.offset += 10
+                }
+                this.matchesLoading = false
             }
         },
         watch: {

@@ -50,12 +50,8 @@
             async update() {
                 this.loading = true
                 const rawResponse = await request(`http://localhost:5000/api/user/${this.user.id}/party`)
-                console.log(rawResponse)
-                if (rawResponse.message) {
-                    this.error = rawResponse.message
-                } else {
-                    this.parties.users = rawResponse
-                }
+                if (rawResponse.message) this.error = rawResponse.message 
+                else this.parties.users = rawResponse
                 this.loading = false
             }
         }
