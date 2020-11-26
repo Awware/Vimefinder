@@ -15,14 +15,8 @@
                                 <Person v-for="person in user.friends" :key="person.id" :person="person" />
                             </b-row>
                         </b-tab>
-                        <b-tab class="nav-tabs" title="Матчи" @click="matchesLoad" :disabled="loading">
-                            <Loader v-if="matchesLoading"/>
-                            <b-row v-else cols="3" v-cloak>
-                                <Match v-for="match in user.matches" :key="match.id" :match="match"/>
-                                <b-col md="12" class="text-center mt-2">
-                                    <b-button variant="outline-success" @click="loadMoreMatches">Загрузить больше</b-button>
-                                </b-col>
-                            </b-row>
+                        <b-tab class="nav-tabs" title="Матчи">
+                            <MatchTab :matches="user.matches" :userId="user.id"/>
                         </b-tab>
                         <b-tab title="Статистика" >
 
@@ -45,7 +39,7 @@
     import Loader from "@/components/Loader"
     import Partyfinder from "@/components/Partyfinder"
     import Person from "@/components/Person"
-    import Match from "@/components/Match"
+    import MatchTab from "@/components/MatchTab"
     import {
         request
     } from "@/request"
@@ -55,20 +49,17 @@
             Session,
             Partyfinder,
             Person,
-            Match
+            MatchTab
         },
         data() {
             return {
-                matchesLoading: true,
                 loading: true,
                 error: '',
                 username: '',
                 user: {},
                 serverData: {
                     received: false
-                },
-                //matches receive data
-                mrd:{}
+                }
             }
         },
         computed: {
@@ -78,25 +69,19 @@
         },
         methods: {
             async update() {
-                this.matchesLoading = true
+                // this.matchesLoading = true
                 this.user.matches = []
-                this.mrd.count = 10
-                this.mrd.offset = 0
+                // this.mrd.count = 10
+                // this.mrd.offset = 0
 
                 this.loading = true
                 this.error = ''
                 let arrayOfPaths = window.location.pathname.split('/')
                 this.username = arrayOfPaths[arrayOfPaths.length - 1]
 
-                console.log(this.username);
-
                 let rawUser = await request(`http://localhost:5000/api/user/${this.username}`)
 
-                console.log(rawUser);
-
                 rawUser = rawUser[0]
-
-                console.log(rawUser);
 
                 if (rawUser) {
                     this.user.rawUser = rawUser
@@ -115,31 +100,37 @@
 
                     const userFriends = await request(`http://localhost:5000/api/user/${this.user.id}/friends`)
                     this.user.friends = userFriends.friends
+
+                    const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=10&offset=0`)
+                    if(matches.request.size){
+                        this.user.matches = matches.matches
+                    }
+
                 } else {
                     this.error = 'Игрок не найден!'
                 }
                 this.loading = false
-            },
-            async matchesLoad(){
-                if(this.user.matches.length > 0){
-                    return
-                }
-                const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
-                if(matches.request.size){
-                    this.user.matches = matches.matches
-                    this.mrd.offset += 10
-                }
-                this.matchesLoading = false
-            },
-            async loadMoreMatches(){
-                this.matchesLoading = true
-                const recMatches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
-                if(recMatches.request.size){
-                    Array.prototype.push.apply(this.user.matches, recMatches.matches)
-                    this.mrd.offset += 10
-                }
-                this.matchesLoading = false
             }
+            // async matchesLoad(){
+            //     if(this.user.matches.length > 0){
+            //         return
+            //     }
+            //     const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
+            //     if(matches.request.size){
+            //         this.user.matches = matches.matches
+            //         this.mrd.offset += 10
+            //     }
+            //     this.matchesLoading = false
+            // },
+            // async loadMoreMatches(){
+            //     this.matchesLoading = true
+            //     const recMatches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
+            //     if(recMatches.request.size){
+            //         Array.prototype.push.apply(this.user.matches, recMatches.matches)
+            //         this.mrd.offset += 10
+            //     }
+            //     this.matchesLoading = false
+            // }
         },
         watch: {
             async getFullPath() {
