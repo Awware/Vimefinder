@@ -15,7 +15,7 @@
                                 <Person v-for="person in user.friends" :key="person.id" :person="person" />
                             </b-row>
                         </b-tab>
-                        <b-tab title="Матчи" @click="matchFirstLoad">
+                        <b-tab title="Матчи" @click="matchFirstLoad" :disabled="loading">
                             <Loader v-if="matchesLoading"/>
                             <b-row v-else cols="3" v-cloak>
                                 <b-col v-for="match in user.matches" :key="match.id">
@@ -98,12 +98,12 @@
 
                 console.log(rawUser);
 
-                if (rawUser != undefined) {
+                if (rawUser) {
                     this.user.rawUser = rawUser
-                    this.user.username = rawUser['username']
-                    this.user.last_seen = new Date(rawUser['lastSeen'] * 1000).toLocaleString();
-                    this.user.level = rawUser['level']
-                    this.user.id = rawUser['id']
+                    this.user.username = rawUser.username
+                    this.user.last_seen = rawUser.lastSeen
+                    this.user.level = rawUser.level
+                    this.user.id = rawUser.id
 
                     const session = await request(`http://localhost:5000/api/user/${this.user.id}/session`)
                     this.user.rawSession = session

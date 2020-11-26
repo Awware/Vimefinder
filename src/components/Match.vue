@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card style="height: 8rem; width:13rem;" class="mt-3 mb-2" no-body>
+        <b-card style="height: 9rem; width:13rem;" class="mt-3 mb-2" no-body>
             <b-card-body class="position: relative;">
                 <b-card-title class="game-title">
                     {{match.game | translateTitle}}
@@ -8,9 +8,10 @@
                     <hr>
                 </b-card-title>
                 <div class="text-center">
-                    <p><span class="text-muted">Карта: </span> {{match.map.name}}</p>
+                    <p><span class="text-muted">Карта: </span> <span :style="{fontSize: (match.map.name.length > 14 ? '14px' : '16px')}">{{match.map.name}}</span></p>
                     <p><span class="text-muted">Игроков: </span> {{match.players}}</p>
                     <p><span class="text-muted">Длительность: </span> {{match.duration | normalDate}}</p>
+                    <p><span class="text-muted">Дата: </span> {{match.date | toLocaleDate}}</p>
                 </div>
             </b-card-body>
         </b-card>
@@ -27,14 +28,26 @@ export default {
     },
     methods:{
         getStatusColor(){
-            if(this.match.state === 1) return '#7BBD4F'
-            else if (this.match.state === 0) return '#D15252'
-            else return '#CAC959'
+            if(this.match.state){
+                if(this.match.state === 1) return '#7BBD4F'
+                else if (this.match.state === 0) return '#D15252'
+                else return '#CAC959'
+            }
+            else{
+                if(this.match.win) return '#7BBD4F'
+                else return '#D15252'
+            }
         },
         getStatusTitle(){
-            if(this.match.state === 1) return 'Победа'
-            else if (this.match.state === 0) return 'Поражение'
-            else return 'Ничья'
+            if(this.match.state){
+                if(this.match.state === 1) return 'Победа'
+                else if (this.match.state === 0) return 'Поражение'
+                else return 'Ничья'
+            }
+            else{
+                if(this.match.win) return 'Победа'
+                else return 'Поражение'
+            }
         }
     },
     filters:{
@@ -56,9 +69,16 @@ export default {
                     return 'Hunger Games Lucky'
                 case 'DUELS':
                     return 'Duels'
+                case 'SW':
+                    return 'Sky Wars'
+                case 'MURDER':
+                    return 'Murder Mystery'
                 default:
                     return value
             }
+        },
+        toLocaleDate : function(value){
+            return new Date(value * 1000).toLocaleString();
         }
     }
 }

@@ -41,7 +41,7 @@
                 </b-list-group-item>
                 <b-list-group-item>
                     Последний вход:
-                    <span class="text-muted">{{user.last_seen}}</span>
+                    <span class="text-muted">{{user.last_seen | toLocaleDate}}</span>
                 </b-list-group-item>
                 <b-list-group-item>
                     Гильдия:
@@ -69,6 +69,11 @@
         },
         methods: {
 
+        },
+        filters:{
+            toLocaleDate : function(value){
+                return new Date(value * 1000).toLocaleString();
+            }
         },
         data() {
             return {
