@@ -46,8 +46,8 @@
                 <b-list-group-item>
                     Гильдия:
                     <span v-if="user.guild">
-                        <a :href="'/guild/' + user.guild.id">{{user.guild.tag ? `[${user.guild.tag}] |` : ''}}
-                            {{user.guild.name}}</a>
+                        <router-link :to="`/guild/${user.guild.id}`">{{user.guild.tag ? `[${user.guild.tag}] |` : ''}}
+                            {{user.guild.name}}</router-link>
                     </span>
                     <span class="text-muted" v-else>
                         Не состоит в гильдии
