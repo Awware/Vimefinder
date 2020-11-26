@@ -8,7 +8,8 @@
                     <hr>
                 </b-card-title>
                 <div class="text-center">
-                    <p><span class="text-muted">Карта: </span> <span :style="{fontSize: (match.map.name.length > 14 ? '14px' : '16px')}">{{match.map.name}}</span></p>
+                    <p v-if="match.map"><span class="text-muted">Карта: </span> <span :style="{fontSize: (match.map.name.length > 14 ? '14px' : '16px')}">{{match.map.name}}</span></p>
+                    <p v-else>Карта: неизвестно</p>
                     <p><span class="text-muted">Игроков: </span> {{match.players}}</p>
                     <p><span class="text-muted">Длительность: </span> {{match.duration | normalDate}}</p>
                     <hr>
@@ -84,6 +85,10 @@ export default {
                     return 'Mob Wars'
                 case 'BRIDGE':
                     return 'The bridge'
+                case 'BP':
+                    return 'Blockparty'
+                case 'TNTTAG':
+                    return 'TNT | Tag'
                 default:
                     return value
             }

@@ -15,7 +15,7 @@
                                 <Person v-for="person in user.friends" :key="person.id" :person="person" />
                             </b-row>
                         </b-tab>
-                        <b-tab title="Матчи" @click="matchesLoad" :disabled="loading">
+                        <b-tab class="nav-tabs" title="Матчи" @click="matchesLoad" :disabled="loading">
                             <Loader v-if="matchesLoading"/>
                             <b-row v-else cols="3" v-cloak>
                                 <Match v-for="match in user.matches" :key="match.id" :match="match"/>
@@ -78,6 +78,8 @@
         },
         methods: {
             async update() {
+                this.matchesLoading = true
+                this.user.matches = []
                 this.mrd.count = 10
                 this.mrd.offset = 0
 
@@ -119,7 +121,9 @@
                 this.loading = false
             },
             async matchesLoad(){
-                this.matchesLoading = true
+                if(this.user.matches.length > 0){
+                    return
+                }
                 const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
                 if(matches.request.size){
                     this.user.matches = matches.matches
