@@ -1,13 +1,11 @@
 <template>
-    <div v-cloak>
-        <Loader v-if="loading"/>
-        <b-row v-else cols="3">
-            <Match v-for="match in matches" :key="match.id" :match="match"/>
-            <b-col md="12" class="text-center mt-2">
-                <b-button variant="outline-success" @click="loadMore">Загрузить больше</b-button>
-            </b-col>
-        </b-row>
-    </div>
+    <Loader v-if="loading"/>
+    <b-row v-else cols="3">
+        <Match v-for="match in matches" :key="match.id" :match="match"/>
+        <b-col md="12" class="text-center mt-2">
+            <b-button class="mt-2 mb-3 load-more" variant="outline-success" @click="loadMore">Загрузить больше</b-button>
+        </b-col>
+    </b-row>
 </template>
 
 <script>
@@ -53,5 +51,9 @@ export default {
 <style scoped>
     [v-cloak]{
         display: none;
+    }
+    .load-more{
+        height: 45px;
+        width: 180px;
     }
 </style>

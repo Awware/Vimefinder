@@ -11,9 +11,7 @@
                 <b-card no-body>
                     <b-tabs card>
                         <b-tab class="nav-tabs" title="Друзья" active>
-                            <b-row cols="4" v-cloak>
-                                <Person v-for="person in user.friends" :key="person.id" :person="person" />
-                            </b-row>
+                            <FriendsTab :friends="user.friends"/>
                         </b-tab>
                         <b-tab class="nav-tabs" title="Матчи">
                             <MatchTab :matches="user.matches" :userId="user.id"/>
@@ -38,8 +36,8 @@
     import Session from "@/components/Session"
     import Loader from "@/components/Loader"
     import Partyfinder from "@/components/Partyfinder"
-    import Person from "@/components/Person"
-    import MatchTab from "@/components/MatchTab"
+    import MatchTab from "@/components/tabs/MatchTab"
+    import FriendsTab from "@/components/tabs/FriendsTab"
     import {
         request
     } from "@/request"
@@ -48,8 +46,8 @@
             Loader,
             Session,
             Partyfinder,
-            Person,
-            MatchTab
+            MatchTab,
+            FriendsTab
         },
         data() {
             return {

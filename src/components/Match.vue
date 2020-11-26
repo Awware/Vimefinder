@@ -25,7 +25,7 @@ export default {
     props:{
         match:{
             type: Object,
-            required:true
+            required: true
         }
     },
     methods:{
@@ -81,14 +81,14 @@ export default {
                     return 'Murder Mystery'
                 case 'TNTRUN':
                     return 'TNT | Run'
+                case 'TNTTAG':
+                    return 'TNT | Tag'
                 case 'MW':
                     return 'Mob Wars'
                 case 'BRIDGE':
                     return 'The bridge'
                 case 'BP':
                     return 'Blockparty'
-                case 'TNTTAG':
-                    return 'TNT | Tag'
                 default:
                     return value
             }

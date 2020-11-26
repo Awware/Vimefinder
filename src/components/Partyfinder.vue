@@ -1,22 +1,20 @@
 <template>
-    <div>
-        <b-card header="Partyfinder" footer-tag="footer" style="width: 23rem;" class="mt-2">
-            <template #footer>
-                <div class="text-center">
-                <button class="btn btn-outline-secondary p-1" @click="update"
-                        :disabled="loading">Получить</button>
-                        </div>
-            </template>
-            <Loader v-if="loading" />
-            <div v-else>
-                <div v-if="parties.users.length && !error">
-                    <PlayerInParty v-for="party in parties.users" :key="party.id" :party="party" />
-                </div>
-                <p v-else-if="error" class="text-center" style="color: #9A5364">{{error ? error : 'Неизвестная ошибка!'}}</p>
-                <p v-else class="text-center" style="color: #6894dd">Нажми на кнопку ниже</p>
+    <b-card header="Partyfinder" footer-tag="footer" style="width: 23rem;" class="mt-2">
+        <template #footer>
+            <div class="text-center">
+            <button class="btn btn-outline-secondary p-1" @click="update"
+                    :disabled="loading">Получить</button>
+                    </div>
+        </template>
+        <Loader v-if="loading" />
+        <div v-else>
+            <div v-if="parties.users.length && !error">
+                <PlayerInParty v-for="party in parties.users" :key="party.id" :party="party" />
             </div>
-        </b-card>
-    </div>
+            <p v-else-if="error" class="text-center" style="color: #9A5364">{{error ? error : 'Неизвестная ошибка!'}}</p>
+            <p v-else class="text-center" style="color: #6894dd">Нажми на кнопку ниже</p>
+        </div>
+    </b-card>
 </template>
 
 <script>
