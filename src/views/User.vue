@@ -69,10 +69,7 @@
         },
         methods: {
             async update() {
-                // this.matchesLoading = true
                 this.user.matches = []
-                // this.mrd.count = 10
-                // this.mrd.offset = 0
 
                 this.loading = true
                 this.error = ''
@@ -111,26 +108,6 @@
                 }
                 this.loading = false
             }
-            // async matchesLoad(){
-            //     if(this.user.matches.length > 0){
-            //         return
-            //     }
-            //     const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
-            //     if(matches.request.size){
-            //         this.user.matches = matches.matches
-            //         this.mrd.offset += 10
-            //     }
-            //     this.matchesLoading = false
-            // },
-            // async loadMoreMatches(){
-            //     this.matchesLoading = true
-            //     const recMatches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=${this.mrd.count}&offset=${this.mrd.offset}`)
-            //     if(recMatches.request.size){
-            //         Array.prototype.push.apply(this.user.matches, recMatches.matches)
-            //         this.mrd.offset += 10
-            //     }
-            //     this.matchesLoading = false
-            // }
         },
         watch: {
             async getFullPath() {
