@@ -70,6 +70,8 @@ export default {
                     return 'Lucky Wars'
                 case 'HGL':
                     return 'Hunger Games Lucky'
+                case 'HG':
+                    return 'Hunger Games'
                 case 'DUELS':
                     return 'Duels'
                 case 'SW':
