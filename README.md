@@ -1,9 +1,7 @@
 # Vimefinder
-## Demo "session"
+## Demonstation
 ![Session](demo/demo.png)
-
-## Demo "matches"
+<br>
 ![Matches](demo/demo2.png)
-
-## Demo "partyfinder"
+<br>
 ![Partyfinder](demo/partyfinder.png)
