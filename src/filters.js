@@ -72,7 +72,7 @@ function translateKeyTitle(value){
         case "wood":return "Добыто дерева"
         case "ores":return "Добыто руды"
         case "nexus":return "Разбито нексусов"
-        case "digged":return "Вскопано"
+        case "digged":return "Вскопано блоков"
         case "levels":return "Уровней"
         case "bedBreaked":return "Кроватей сломано"
         case "resourcePointsBreaked":return "РПБ"
