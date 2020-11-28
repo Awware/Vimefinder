@@ -17,7 +17,7 @@
                             <MatchTab :matches="user.matches" :userId="user.id"/>
                         </b-tab>
                         <b-tab title="Статистика" >
-
+                            <StatisticTab :user="user"/>
                         </b-tab>
                         <b-tab title="Гильдия" :disabled="!user.guild">
 
@@ -43,6 +43,7 @@
     //Tabs
     import MatchTab from "@/components/tabs/MatchTab"
     import FriendsTab from "@/components/tabs/FriendsTab"
+    import StatisticTab from "@/components/tabs/StatisticTab"
     import {
         request
     } from "@/request"
@@ -52,7 +53,8 @@
             Session,
             Partyfinder,
             MatchTab,
-            FriendsTab
+            FriendsTab,
+            StatisticTab
         },
         data() {
             return {

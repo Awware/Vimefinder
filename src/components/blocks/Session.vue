@@ -60,6 +60,7 @@
     import {
         GetColorByRank
     } from "@/coloring"
+    import {toLocaleDate} from "@/filters"
     import Loader from "@/components/Loader"
     export default {
         components: {
@@ -69,9 +70,7 @@
 
         },
         filters:{
-            toLocaleDate : function(value){
-                return new Date(value * 1000).toLocaleString();
-            }
+            toLocaleDate : value => toLocaleDate(value)
         },
         data() {
             return {
