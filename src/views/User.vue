@@ -10,13 +10,13 @@
             <b-col cols="8">
                 <b-card no-body>
                     <b-tabs card>
-                        <b-tab class="nav-tabs" title="Друзья" active>
+                        <b-tab class="scrollable" title="Друзья" active>
                             <FriendsTab :friends="user.friends"/>
                         </b-tab>
-                        <b-tab class="nav-tabs" title="Матчи">
+                        <b-tab class="scrollable" title="Матчи">
                             <MatchTab :matches="user.matches" :userId="user.id"/>
                         </b-tab>
-                        <b-tab title="Статистика" >
+                        <b-tab class="scrollable" title="Статистика" >
                             <StatisticTab :user="user"/>
                         </b-tab>
                         <b-tab title="Гильдия" :disabled="!user.guild">
@@ -131,10 +131,15 @@
         display: none;
     }
 
-    .nav-tabs {
+    .scrollable {
         flex-wrap: nowrap;
         white-space: nowrap;
         max-height: 810px;
-        overflow: auto;
+        /* Scrollbar */
+        overflow-x: none;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #BEBEBE #F2F2F2;
+        
     }
 </style>

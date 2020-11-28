@@ -1,6 +1,6 @@
 <template>
-    <b-row cols="4" v-cloak>
-        <Stat v-for="stat in stats" :key="stat.id" :stat="stat"/>
+    <b-row cols="3" v-cloak>
+        <Stat v-for="(stat, name) in stats" :key="stat.id" :stat="stat" :name="name"/>
     </b-row>
 </template>
 
