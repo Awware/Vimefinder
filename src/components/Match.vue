@@ -54,9 +54,9 @@ export default {
         }
     },
     filters:{
-        normalDate : value => normalDate(value),
-        translateTitle: value => translateTitle(value),
-        toLocaleDate : value => toLocaleDate(value)
+        normalDate,
+        translateTitle,
+        toLocaleDate
     }
 }
 </script>

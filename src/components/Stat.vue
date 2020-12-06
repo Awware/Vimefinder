@@ -40,10 +40,7 @@ export default {
         translateTitle: value => translateTitle(value),
         translateKeyTitle: value => translateKeyTitle(value),
         translatePrisonBlocks: value =>{
-            console.log(value.toString());
-            if(typeof value === "object"){
-                return "soon"
-            }
+            if(typeof value === "object") return "soon"
             return value
         }
     }

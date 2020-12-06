@@ -9,6 +9,7 @@
                 <div style="text-align:center;">
                     <router-link class="font-weight-bold" :style="style_color" :to="`/user/${person.username}`">
                     {{person.username}}</router-link>
+                    <p v-if="!person.online" class="online-status">*</p>
                 </div>
             </b-card-body>
         </b-card>
@@ -56,5 +57,12 @@ export default {
         image-rendering: -webkit-optimize-contrast;
         image-rendering: pixelated;
         transform: scale(5);
+    }
+    .online-status{
+        margin-left: 4px;
+        top: -2px;
+        transform: rotate(-45deg);
+        font-size:24px;;
+        color: black;
     }
 </style>

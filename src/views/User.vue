@@ -11,7 +11,7 @@
                 <b-card no-body>
                     <b-tabs card>
                         <b-tab class="scrollable" title="Друзья" active>
-                            <FriendsTab :friends="user.friends"/>
+                            <FriendsTab :friends="user.friendSessions"/>
                         </b-tab>
                         <b-tab class="scrollable" title="Матчи">
                             <MatchTab :matches="user.matches" :userId="user.id"/>
@@ -20,7 +20,7 @@
                             <StatisticTab :user="user"/>
                         </b-tab>
                         <b-tab title="Гильдия" :disabled="!user.guild">
-
+                            <GuildTab v-if="user.guild" :guild="user.guild"/>
                         </b-tab>
                         <b-tab title="Доп. информация" :disabled="!serverData.received">
 
@@ -44,6 +44,8 @@
     import MatchTab from "@/components/tabs/MatchTab"
     import FriendsTab from "@/components/tabs/FriendsTab"
     import StatisticTab from "@/components/tabs/StatisticTab"
+    import GuildTab from "@/components/tabs/GuildTab"
+
     import {
         request
     } from "@/request"
@@ -54,7 +56,8 @@
             Partyfinder,
             MatchTab,
             FriendsTab,
-            StatisticTab
+            StatisticTab,
+            GuildTab
         },
         data() {
             return {
@@ -103,6 +106,31 @@
 
                     const userFriends = await request(`http://localhost:5000/api/user/${this.user.id}/friends`)
                     this.user.friends = userFriends.friends
+
+                    this.user.friendSessions = []
+
+                    let fIds = []
+                    for(let friend in this.user.friends)
+                        fIds.push(this.user.friends[friend].id)
+
+                    //Get sessions
+                    if(fIds.length > 49){
+                        let len = fIds.length
+                        while(len > 0){
+                            let en = []
+                            if(len >= 49)
+                            {
+                                en = fIds.splice(0, 49)
+                                len -= 49
+                            }
+                            else {
+                                en = fIds.splice(0, len)
+                                len = 0
+                            }
+                            this.user.friendSessions = this.user.friendSessions.concat(await request(`http://localhost:5000/api/user/session/${en.join()}`))
+                        }
+                    }
+                    else this.user.friendSessions = await request(`http://localhost:5000/api/user/session/${fIds.join()}`)
 
                     const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=10&offset=0`)
                     if(matches.request.size){

@@ -70,7 +70,7 @@
 
         },
         filters:{
-            toLocaleDate : value => toLocaleDate(value)
+            toLocaleDate
         },
         data() {
             return {
