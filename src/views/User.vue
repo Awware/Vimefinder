@@ -114,6 +114,7 @@
                         fIds.push(this.user.friends[friend].id)
 
                     //Get sessions
+                    //Refactor todo?
                     if(fIds.length > 49){
                         let len = fIds.length
                         while(len > 0){

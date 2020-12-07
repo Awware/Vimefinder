@@ -2,6 +2,7 @@
     <div>
         <b-card style="height: 6rem; width:10.5rem; margin: 5px;">
             <b-card-body style="padding: 0;">
+                <p :style="{color: getOnlineStatus()}" class="online-status">*</p>
                 <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
                     <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
                     <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
@@ -9,7 +10,6 @@
                 <div style="text-align:center;">
                     <router-link class="font-weight-bold" :style="style_color" :to="`/user/${person.username}`">
                     {{person.username}}</router-link>
-                    <p v-if="!person.online" class="online-status">*</p>
                 </div>
             </b-card-body>
         </b-card>
@@ -31,6 +31,12 @@ export default {
         person:{
             type:Object,
             required:true
+        }
+    },
+    methods:{
+        getOnlineStatus(){
+            if(this.person.online.value) return '#8DCA4C'
+            else return '#DB4C60'
         }
     },
     mounted() {
@@ -59,10 +65,27 @@ export default {
         transform: scale(5);
     }
     .online-status{
-        margin-left: 4px;
-        top: -2px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin-right: 5px;
         transform: rotate(-45deg);
-        font-size:24px;;
-        color: black;
+        font-size:18px;
+        transition: opacity 1s ease-in-out;
+        animation: online_status_anim 1s ease-in-out infinite;
+    }
+    @keyframes online_status_anim {
+        0%{
+            opacity: 1;
+        }
+        50%{
+            opacity: 0.6
+        }
+        75%{
+            opacity: 0.8
+        }
+        100%{
+            opacity: 1
+        }
     }
 </style>
