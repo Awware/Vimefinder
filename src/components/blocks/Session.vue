@@ -4,11 +4,16 @@
         <b-list-group v-else>
             <b-list-group-item>
                 <div class="face">
-                    <div class="profile-second-layer"
-                        :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${user.username}.png?_=16057785)`}">
-                    </div>
-                    <img width="64px" :src="`https://skin.vimeworld.ru/head/${user.username}.png?_=16057785`"
-                        alt="">
+                    <b-skeleton-wrapper :loading="!preloadImage">
+                        <template #loading>
+                            <b-skeleton animation="fade" type="avatar" width="64px" height="64px"></b-skeleton>
+                        </template>
+                        <div class="profile-second-layer"
+                            :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${user.username}.png?_=16057785)`}">
+                        </div>
+                        <img width="64px" :src="`https://skin.vimeworld.ru/head/${user.username}.png?_=16057785`"
+                            alt="">
+                    </b-skeleton-wrapper>
                 </div>
                 <a class="vimetop_logo" :href="'https://vimetop.ru/player/' + user.username" target="_blank">
                     <img src="https://vimetop.ru/favicon.ico" alt="Vimetop">
@@ -60,6 +65,7 @@
     import {
         GetColorByRank
     } from "@/coloring"
+    import {preload} from "@/preload"
     import {toLocaleDate} from "@/filters"
     import Loader from "@/components/Loader"
     export default {
@@ -81,10 +87,13 @@
                     position: 'absolute',
                     top: '5px',
                     fontSize: '22px'
-                }
+                },
+                preloadImage: false
             }
         },
         mounted() {
+            preload(`https://skin.vimeworld.ru/head/${this.user.username}.png?_=16057785`)
+            preload(`https://skin.vimeworld.ru/raw/skin/${this.user.username}.png?_=16057785`, () => this.preloadImage = true)
             this.profile_rank_object = GetColorByRank(this.user.rank, this.profile_rank_object)
             this.loading = false
         },

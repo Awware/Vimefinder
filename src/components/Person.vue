@@ -3,10 +3,15 @@
         <b-card style="height: 6rem; width:10.5rem; margin: 5px;">
             <b-card-body style="padding: 0;">
                 <p :style="{color: getOnlineStatus()}" class="online-status">*</p>
-                <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
-                    <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
-                    <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
-                </div>
+                    <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
+                        <b-skeleton-wrapper :loading="!preloadImage">
+                            <template #loading>
+                                <b-skeleton animation="fade" type="avatar" width="32px" height="32px"></b-skeleton>
+                            </template>
+                            <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
+                            <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
+                        </b-skeleton-wrapper>
+                    </div>
                 <div style="text-align:center;">
                     <router-link class="font-weight-bold" :style="style_color" :to="`/user/${person.username}`">
                     {{person.username}}</router-link>
@@ -18,13 +23,15 @@
 
 <script>
 import {GetColorByRank} from "@/coloring"
+import {preload} from "@/preload"
 export default {
     data(){
         return{
             style_color:{
                 color: '#888888',
                 fontSize:'12px'
-            }
+            },
+            preloadImage: false
         }
     },
     props:{
@@ -40,6 +47,9 @@ export default {
         }
     },
     mounted() {
+        preload(`https://skin.vimeworld.ru/head/${this.person.username}.png?_=16057785`)
+        preload(`https://skin.vimeworld.ru/raw/skin/${this.person.username}.png?_=16057785`, () => this.preloadImage = true)
+        
         if(this.person.username.length <= 13){
             this.style_color.fontSize = '14px';
         }
