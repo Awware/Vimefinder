@@ -24,9 +24,7 @@ export default {
     },
     async mounted() {
         let rawStats = await request(`http://localhost:5000/api/user/${this.user.id}/stats`)
-        if(rawStats.stats){
-            this.stats = rawStats.stats
-        }
+        if(rawStats.stats) this.stats = rawStats.stats
     },
 }
 </script>

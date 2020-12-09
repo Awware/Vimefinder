@@ -19,7 +19,7 @@
                         <b-tab class="scrollable" title="Статистика" >
                             <StatisticTab :user="user"/>
                         </b-tab>
-                        <b-tab title="Гильдия" :disabled="!user.guild">
+                        <b-tab class="scrollable" title="Гильдия" :disabled="!user.guild">
                             <GuildTab v-if="user.guild" :guild="user.guild"/>
                         </b-tab>
                         <b-tab title="Доп. информация" :disabled="!serverData.received">
@@ -46,9 +46,11 @@
     import StatisticTab from "@/components/tabs/StatisticTab"
     import GuildTab from "@/components/tabs/GuildTab"
 
+    //JS
     import {
         request
     } from "@/request"
+    import {getSessionsByIds} from "@/vimerequests"
     export default {
         components: {
             Loader,
@@ -95,6 +97,7 @@
                     this.user.last_seen = rawUser.lastSeen
                     this.user.level = rawUser.level
                     this.user.id = rawUser.id
+                    this.user.lvlperc = rawUser.levelPercentage
 
                     const session = await request(`http://localhost:5000/api/user/${this.user.id}/session`)
                     this.user.rawSession = session
@@ -110,34 +113,12 @@
                     this.user.friendSessions = []
 
                     let fIds = []
-                    for(let friend in this.user.friends)
-                        fIds.push(this.user.friends[friend].id)
+                    for(const friend in this.user.friends) fIds.push(this.user.friends[friend].id)
 
-                    //Get sessions
-                    //Refactor todo?
-                    if(fIds.length > 49){
-                        let len = fIds.length
-                        while(len > 0){
-                            let en = []
-                            if(len >= 49)
-                            {
-                                en = fIds.splice(0, 49)
-                                len -= 49
-                            }
-                            else {
-                                en = fIds.splice(0, len)
-                                len = 0
-                            }
-                            this.user.friendSessions = this.user.friendSessions.concat(await request(`http://localhost:5000/api/user/session/${en.join()}`))
-                        }
-                    }
-                    else this.user.friendSessions = await request(`http://localhost:5000/api/user/session/${fIds.join()}`)
+                    this.user.friendSessions = await getSessionsByIds(fIds)
 
                     const matches = await request(`http://localhost:5000/api/user/${this.user.id}/matches?count=10&offset=0`)
-                    if(matches.request.size){
-                        this.user.matches = matches.matches
-                    }
-
+                    if(matches.request.size) this.user.matches = matches.matches
                 } else {
                     this.error = 'Игрок не найден!'
                 }
@@ -158,17 +139,5 @@
 <style scoped>
     [v-cloak] {
         display: none;
-    }
-
-    .scrollable {
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        max-height: 810px;
-        /* Scrollbar */
-        overflow-x: none;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        scrollbar-color: #BEBEBE #F2F2F2;
-        
     }
 </style>

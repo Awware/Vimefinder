@@ -1,17 +1,17 @@
 <template>
     <div>
-        <b-card style="height: 6rem; width:10.5rem; margin: 5px;">
-            <b-card-body style="padding: 0;">
+        <b-card :style="{height: pHeight, width: pWidth, margin: '5px', border}" style="box-shadow: 0px 5px 5px rgba(0,0,0,0.1);">
+            <b-card-body style="padding: 0">
                 <p :style="{color: getOnlineStatus()}" class="online-status">*</p>
-                    <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
-                        <b-skeleton-wrapper :loading="!preloadImage">
-                            <template #loading>
-                                <b-skeleton animation="fade" type="avatar" width="32px" height="32px"></b-skeleton>
-                            </template>
-                            <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
-                            <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
-                        </b-skeleton-wrapper>
-                    </div>
+                <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
+                    <b-skeleton-wrapper :loading="!preloadImage">
+                        <template #loading>
+                            <b-skeleton animation="fade" type="avatar" width="32px" height="32px"></b-skeleton>
+                        </template>
+                        <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
+                        <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
+                    </b-skeleton-wrapper>
+                </div>
                 <div style="text-align:center;">
                     <router-link class="font-weight-bold" :style="style_color" :to="`/user/${person.username}`">
                     {{person.username}}</router-link>
@@ -31,13 +31,29 @@ export default {
                 color: '#888888',
                 fontSize:'12px'
             },
-            preloadImage: false
+            preloadImage: false,
+            border: ''
         }
     },
     props:{
         person:{
             type:Object,
             required:true
+        },
+        pWidth: {
+            type: String,
+            required: false,
+            default: '10.5rem'
+        },
+        pHeight:{
+            type: String,
+            required: false,
+            default: '6rem'
+        },
+        guildCompat:{
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     methods:{
@@ -54,6 +70,11 @@ export default {
             this.style_color.fontSize = '14px';
         }
         this.style_color = GetColorByRank(this.person.rank, this.style_color)
+
+        if(this.guildCompat){
+            if(this.person.status == 'OFFICER') this.border = '2px dotted #4B60A3'
+            else if(this.person.status == 'LEADER') this.border = '2px dotted #E14258'
+        }
     }
 }
 </script>
@@ -84,6 +105,19 @@ export default {
         transition: opacity 1s ease-in-out;
         animation: online_status_anim 1s ease-in-out infinite;
     }
+
+    @keyframes leader {
+        0% {
+            transform: scale(5);
+        }
+        50% {
+            transform: scale(4);
+        }
+        100% {
+            transform: scale(3);
+        }
+    }
+
     @keyframes online_status_anim {
         0%{
             opacity: 1;

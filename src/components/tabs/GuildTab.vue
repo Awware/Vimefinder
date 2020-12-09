@@ -2,28 +2,52 @@
     <b-row>
         <b-col cols="12">
             <GuildInformation :guild="GuildFull"/>
+            <GuildMembers class="mt-2" :members="GuildMembers"/>
         </b-col>
     </b-row>
 </template>
 
 <script>
 import GuildInformation from "@/components/GuildInformation"
+import GuildMembers from "@/components/GuildMembers"
+import {getSessionsByIds} from "@/vimerequests"
 import {
     request
 } from "@/request"
 export default {
     components:{
-        GuildInformation
+        GuildInformation,
+        GuildMembers
     },
     data() {
         return {
-            GuildFull: {}
+            GuildFull: {},
+            GuildMembers: {}
         }
     },
     async mounted() {
         const gettedGuild = await request(`http://localhost:5000/api/guild/${this.guild.id}`)
         if(gettedGuild) this.GuildFull = gettedGuild
         else console.error("Guild is null") 
+
+        let ids = []
+        for(const member in gettedGuild.members) 
+            ids.push(gettedGuild.members[member].user.id)
+
+        let customMembers = []
+
+        const sessions = await getSessionsByIds(ids)
+
+        gettedGuild.members.forEach((a, i) =>{
+            customMembers.push({
+                username: a.user.username,
+                rank: a.user.rank,
+                online: sessions[i].online,
+                status: a.status
+            })
+        })
+
+        this.GuildMembers = customMembers
     },
     props:['guild']
 }

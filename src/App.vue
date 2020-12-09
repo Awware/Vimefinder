@@ -57,4 +57,14 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.scrollable {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    max-height: 810px;
+    /* Scrollbar */
+    overflow-x: none;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #BEBEBE #F2F2F2;
+}
 </style>

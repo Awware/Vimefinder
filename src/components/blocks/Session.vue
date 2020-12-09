@@ -20,12 +20,10 @@
                 </a>
                 <span class="profile-rank font-weight-bold" :style="profile_rank_object">{{user.rank}}</span>
                 <div class="text-center">
-                    <span class="profile-nick">{{user.username}}
-
-                    </span>
-                    |
-                    LVL: <span class="font-weight-bold"
-                        :style="{color: user.level > 20 ? '#BE5656' : '#656565'}">{{user.level}}</span>
+                    <span class="profile-nick">{{user.username}} | {{user.level}}lvl</span>
+                    <b-progress max="1" height="18px" class="ml-2 mr-2" variant="secondary" show-label>
+                        <b-progress-bar striped animated :value="user.lvlperc" :label="`${(user.lvlperc * 100).toFixed(0)}%`"></b-progress-bar>
+                    </b-progress>
                 </div>
             </b-list-group-item>
             <b-list-group-item>
