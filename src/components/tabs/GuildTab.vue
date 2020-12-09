@@ -31,8 +31,7 @@ export default {
         else console.error("Guild is null") 
 
         let ids = []
-        for(const member in gettedGuild.members) 
-            ids.push(gettedGuild.members[member].user.id)
+        gettedGuild.members.map(member => ids.push(member.user.id))
 
         let customMembers = []
 
