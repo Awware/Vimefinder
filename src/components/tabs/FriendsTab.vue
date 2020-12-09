@@ -1,5 +1,5 @@
 <template>
-    <b-row cols="4" v-cloak>
+    <b-row v-cloak>
         <Person v-for="person in friends" :key="person.id" :person="person"/>
     </b-row>
 </template>

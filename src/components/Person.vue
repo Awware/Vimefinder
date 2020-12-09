@@ -1,24 +1,22 @@
 <template>
-    <div>
-        <b-card :style="cardStyle" style="box-shadow: 0px 5px 5px rgba(0,0,0,0.1); margin: 5px;">
-            <b-card-body style="padding: 0">
-                <p :style="{color: getOnlineStatus()}" class="online-status">*</p>
-                <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
-                    <b-skeleton-wrapper :loading="!preloadImage">
-                        <template #loading>
-                            <b-skeleton animation="fade" type="avatar" width="32px" height="32px"></b-skeleton>
-                        </template>
-                        <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
-                        <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
-                    </b-skeleton-wrapper>
-                </div>
-                <div style="text-align:center;">
-                    <router-link class="font-weight-bold" :style="style_color" :to="`/user/${person.username}`">
-                    {{person.username}}</router-link>
-                </div>
-            </b-card-body>
-        </b-card>
-    </div>
+    <b-card class="ml-2" :style="cardStyle" style="box-shadow: 0px 5px 5px rgba(0,0,0,0.1); margin: 5px;">
+        <b-card-body style="padding: 0">
+            <p :style="{color: getOnlineStatus()}" class="online-status">*</p>
+            <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
+                <b-skeleton-wrapper :loading="!preloadImage">
+                    <template #loading>
+                        <b-skeleton animation="fade" type="avatar" width="32px" height="32px"></b-skeleton>
+                    </template>
+                    <img width="32px" :src="`https://skin.vimeworld.ru/head/${person.username}.png?_=16057785`" alt="">
+                    <div class="profile-second-layer" :style="{backgroundImage: `url(https://skin.vimeworld.ru/raw/skin/${person.username}.png?_=16057785)`}"></div>
+                </b-skeleton-wrapper>
+            </div>
+            <div style="text-align:center;">
+                <router-link class="font-weight-bold" :style="style_color" :to="`/user/${person.username}`">
+                {{person.username}}</router-link>
+            </div>
+        </b-card-body>
+    </b-card>
 </template>
 
 <script>
@@ -43,7 +41,7 @@ export default {
         pWidth: {
             type: String,
             required: false,
-            default: '10.5rem'
+            default: '8.1rem'
         },
         pHeight:{
             type: String,
@@ -71,8 +69,9 @@ export default {
         preload(`https://skin.vimeworld.ru/head/${this.person.username}.png?_=16057785`)
         preload(`https://skin.vimeworld.ru/raw/skin/${this.person.username}.png?_=16057785`, () => this.preloadImage = true)
         
-        if(this.person.username.length <= 13){
-            this.style_color.fontSize = '14px';
+        //?
+        if(this.person.username.length <= 12){
+            this.style_color.fontSize = '13px';
         }
         this.style_color = GetColorByRank(this.person.rank, this.style_color)
 

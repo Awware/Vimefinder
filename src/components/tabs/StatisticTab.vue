@@ -1,5 +1,5 @@
 <template>
-    <b-row cols="3" v-cloak>
+    <b-row cols="3">
         <Stat v-for="(stat, name) in stats" :key="stat.id" :stat="stat" :name="name"/>
     </b-row>
 </template>

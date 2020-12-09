@@ -2,33 +2,35 @@
     <div>
         <b-alert v-if="error" variant="danger" class="text-center" show>{{error}}</b-alert>
         <Loader v-else-if="loading" />
-        <b-row v-else>
-            <b-col cols="4">
-                <Session :user="user" />
-                <Partyfinder :user="user" />
-            </b-col>
-            <b-col cols="8">
-                <b-card no-body>
-                    <b-tabs card>
-                        <b-tab class="scrollable" title="Друзья" active>
-                            <FriendsTab :friends="user.friendSessions"/>
-                        </b-tab>
-                        <b-tab class="scrollable" title="Матчи">
-                            <MatchTab :matches="user.matches" :userId="user.id"/>
-                        </b-tab>
-                        <b-tab class="scrollable" title="Статистика" >
-                            <StatisticTab :user="user"/>
-                        </b-tab>
-                        <b-tab class="scrollable" title="Гильдия" :disabled="!user.guild">
-                            <GuildTab v-if="user.guild" :guild="user.guild"/>
-                        </b-tab>
-                        <b-tab title="Доп. информация" :disabled="!serverData.received">
+        <b-containter v-else fluid="lg">
+            <b-row>
+                <b-col col lg="4">
+                    <Session :user="user" />
+                    <Partyfinder :user="user" />
+                </b-col>
+                <b-col col lg="8">
+                    <b-card no-body>
+                        <b-tabs fill card>
+                            <b-tab class="scrollable" title="Друзья" active>
+                                <FriendsTab :friends="user.friendSessions"/>
+                            </b-tab>
+                            <b-tab class="scrollable" title="Матчи">
+                                <MatchTab :matches="user.matches" :userId="user.id"/>
+                            </b-tab>
+                            <b-tab class="scrollable" title="Статистика" >
+                                <StatisticTab :user="user"/>
+                            </b-tab>
+                            <b-tab class="scrollable" title="Гильдия" :disabled="!user.guild">
+                                <GuildTab v-if="user.guild" :guild="user.guild"/>
+                            </b-tab>
+                            <b-tab title="Доп. информация" :disabled="!serverData.received">
 
-                        </b-tab>
-                    </b-tabs>
-                </b-card>
-            </b-col>
-        </b-row>
+                            </b-tab>
+                        </b-tabs>
+                    </b-card>
+                </b-col>
+            </b-row>
+        </b-containter>
     </div>
 </template>
 
@@ -113,7 +115,8 @@
                     this.user.friendSessions = []
 
                     let fIds = []
-                    for(const friend in this.user.friends) fIds.push(this.user.friends[friend].id)
+                    this.user.friends.map(friend => fIds.push(friend.id))
+                    //for(const friend in this.user.friends) fIds.push(this.user.friends[friend].id)
 
                     this.user.friendSessions = await getSessionsByIds(fIds)
 

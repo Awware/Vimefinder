@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card style="height: 9rem; width:13rem;" class="mt-2 mb-2 ml-3" no-body>
+        <b-card style="height: 9rem; width:13rem;" class="mt-2 mb-2 ml-4" no-body>
             <b-card-title class="game-title">
                 {{match.game | translateTitle}}
                 <span class="state-deg" :style="{color: getStatusColor()}" v-b-tooltip.hover :title="getStatusTitle"> *</span>

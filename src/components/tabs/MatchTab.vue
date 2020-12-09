@@ -1,6 +1,6 @@
 <template>
     <Loader v-if="loading"/>
-    <b-row v-else cols="3">
+    <b-row v-else>
         <Match v-for="match in matches" :key="match.id" :match="match"/>
         <b-col md="12" class="text-center mt-2">
             <b-button class="mt-2 mb-3 load-more" variant="outline-success" @click="loadMore">Загрузить больше</b-button>

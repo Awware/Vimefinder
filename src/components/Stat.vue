@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card style="height: 10rem; width:14rem;" class="mt-2 mb-2 ml-2" no-body>
+        <b-card style="height: 10rem;" class="mt-2 mb-2 ml-1" no-body>
             <b-card-title class="game-title">
                 {{name | translateTitle}}
                 <hr>
@@ -8,15 +8,15 @@
             <b-card-body class="scrollable">
                 <div class="text-center">
                     <p v-for="(keyValue, keyName) in stat.global" :key="keyName">
-                            <b-row cols="2">
-                                <b-col cols="8" style="font-size: 13px;">
-                                    {{keyName | translateKeyTitle}}
-                                </b-col>
-                                <b-col cols="4" style="font-size: 14px;">
-                                    {{keyValue | translatePrisonBlocks}}
-                                </b-col>
-                            </b-row>
-                        </p>
+                        <b-row cols="2">
+                            <b-col cols="8" style="font-size: calc(3px + 1vmin);">
+                                {{keyName | translateKeyTitle}}
+                            </b-col>
+                            <b-col cols="4" style="font-size: calc(4px + 1vmin);">
+                                {{keyValue | translatePrisonBlocks}}
+                            </b-col>
+                        </b-row>
+                    </p>
                 </div>
             </b-card-body>
         </b-card>
@@ -60,21 +60,11 @@ export default {
         margin-bottom: 5px;
     }
     .game-title{
-        font-size: 16px;
+        font-size: calc(6px + 1vmin);
         text-align:center;
         font-family: Roboto;
         font-weight: bold;
         color: #3c3c3c;
         padding-top: 5px;
-    }
-    .scrollable {
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        max-height: 810px;
-        overflow-y: auto;
-        /* Scrollbar */
-        overflow-x: none;
-        scrollbar-width: thin;
-        scrollbar-color: #BEBEBE #F2F2F2;
     }
 </style>

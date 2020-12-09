@@ -1,5 +1,5 @@
 <template>
-    <b-card header="Partyfinder" footer-tag="footer" style="width: 23rem;" class="mt-2">
+    <b-card header="Partyfinder" footer-tag="footer" class="mt-2">
         <template #footer>
             <div class="text-center">
             <button class="btn btn-outline-secondary p-1" @click="update"
