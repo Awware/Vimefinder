@@ -2,7 +2,16 @@
     <b-card no-body>
         <b-card-title class="text-center mt-1 mb-1">
             <h2>Информация о гильдии `{{guild.name}}`</h2>
-            <blockquote v-html="guild.web_info"></blockquote>
+            <!-- soon -->
+            <!-- <div style="">
+                <div style="width: 350px; heigth: 50px">
+                    <b-progress max="1" height="25px" class="ml-2 mr-2" variant="secondary" show-label>
+                        <b-progress-bar striped animated :value="guild.levelPercentage">
+                            <p style="color: #F0F0F0; font-size: 16px" class="d-flex w-100">{{guild.level}}lvl | {{(guild.levelPercentage * 100).toFixed(0)}}%</p>
+                        </b-progress-bar>
+                    </b-progress>
+                </div>
+            </div> -->
             <hr>
         </b-card-title>
         <b-card-body>
@@ -12,13 +21,11 @@
                 </b-col>
                 <b-col cols="6">
                     <p>Дата создания: {{guild.created | toLocaleDate}}</p>
+                    <p>Вложено $ в гильдию: {{(Intl.NumberFormat().format(guild.totalCoins))}}</p>
+                    <p>Заработано XP: {{(Intl.NumberFormat().format(guild.totalExp))}}</p>
                 </b-col>
                 <b-col cols="3">
-                    <b-progress max="1" height="18px" class="ml-2 mr-2" variant="success" show-label>
-                        <b-progress-bar striped animated :value="guild.levelPercentage">
-                            <p style="color: #2E4519;" class="justify-content-center d-flex position-absolute w-100">{{guild.level}}lvl | {{(guild.levelPercentage * 100).toFixed(0)}}%</p>
-                        </b-progress-bar>
-                    </b-progress>
+
                 </b-col>
             </b-row>
         </b-card-body>
@@ -37,7 +44,11 @@ export default {
     },
     props:['guild'],
     filters:{
-        toLocaleDate
+        toLocaleDate,
+        replaceShit: value =>{
+            return value
+            //return value.replace('<br><br>','<br>').replace('<strong>', '').replace('</strong>', '')
+        }
     }
 }
 </script>

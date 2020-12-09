@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-card :style="{height: pHeight, width: pWidth, margin: '5px', border}" style="box-shadow: 0px 5px 5px rgba(0,0,0,0.1);">
+        <b-card :style="cardStyle" style="box-shadow: 0px 5px 5px rgba(0,0,0,0.1); margin: 5px;">
             <b-card-body style="padding: 0">
                 <p :style="{color: getOnlineStatus()}" class="online-status">*</p>
                 <div style="display:flex; justify-content: center; align-items:center; margin-bottom:3px">
@@ -32,7 +32,7 @@ export default {
                 fontSize:'12px'
             },
             preloadImage: false,
-            border: ''
+            cardStyle: {}
         }
     },
     props:{
@@ -63,6 +63,11 @@ export default {
         }
     },
     mounted() {
+
+        this.cardStyle = {
+            height: this.pHeight, width: this.pWidth
+        }
+
         preload(`https://skin.vimeworld.ru/head/${this.person.username}.png?_=16057785`)
         preload(`https://skin.vimeworld.ru/raw/skin/${this.person.username}.png?_=16057785`, () => this.preloadImage = true)
         
@@ -72,8 +77,14 @@ export default {
         this.style_color = GetColorByRank(this.person.rank, this.style_color)
 
         if(this.guildCompat){
-            if(this.person.status == 'OFFICER') this.border = '2px dotted #4B60A3'
-            else if(this.person.status == 'LEADER') this.border = '2px dotted #E14258'
+            if(this.person.status == 'OFFICER') {
+                this.cardStyle.backgroundColor = 'rgba(75, 96, 163, 0.1)'
+                this.cardStyle.border = '2px dotted #4B60A3'
+            }
+            else if(this.person.status == 'LEADER') {
+                this.cardStyle.backgroundColor = 'rgba(163, 75, 94, 0.1)'
+                this.cardStyle.border = '4px dotted #A34B5E'
+            }
         }
     }
 }
