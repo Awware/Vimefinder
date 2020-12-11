@@ -1,7 +1,7 @@
 <template>
     <b-card no-body>
         <b-card-title class="text-center mt-1 mb-1">
-            <h2>Информация о гильдии `{{guild.name}}`</h2>
+            <h2>Информация о гильдии `{{ guild.name }}`</h2>
             <!-- soon -->
             <!-- <div style="">
                 <div style="width: 350px; heigth: 50px">
@@ -12,40 +12,44 @@
                     </b-progress>
                 </div>
             </div> -->
-            <hr>
+            <hr />
         </b-card-title>
         <b-card-body>
             <b-row class="text-center">
                 <b-col cols="3">
-                    <p>ID: {{guild.id}}</p>
+                    <p>ID: {{ guild.id }}</p>
                 </b-col>
                 <b-col cols="6">
-                    <p>Дата создания: {{guild.created | toLocaleDate}}</p>
-                    <p>Вложено $ в гильдию: {{(Intl.NumberFormat().format(guild.totalCoins))}}</p>
-                    <p>Заработано XP: {{(Intl.NumberFormat().format(guild.totalExp))}}</p>
+                    <p>Дата создания: {{ guild.created | toLocaleDate }}</p>
+                    <p>
+                        Вложено $ в гильдию:
+                        {{ Intl.NumberFormat().format(guild.totalCoins) }}
+                    </p>
+                    <p>
+                        Заработано XP:
+                        {{ Intl.NumberFormat().format(guild.totalExp) }}
+                    </p>
                 </b-col>
-                <b-col cols="3">
-
-                </b-col>
+                <b-col cols="3"> </b-col>
             </b-row>
         </b-card-body>
     </b-card>
 </template>
 
 <script>
-import {toLocaleDate} from "@/filters"
+import { toLocaleDate } from '@/filters'
 export default {
     data() {
         return {
-            levelBar:{
+            levelBar: {
                 value: 0
             }
         }
     },
-    props:['guild'],
-    filters:{
+    props: ['guild'],
+    filters: {
         toLocaleDate,
-        replaceShit: value =>{
+        replaceShit: value => {
             return value
             //return value.replace('<br><br>','<br>').replace('<strong>', '').replace('</strong>', '')
         }
@@ -54,13 +58,13 @@ export default {
 </script>
 
 <style scoped>
-    *{
-        font-family: Roboto;
-        margin:  0;
-        padding: 0;
-    }
-    hr{
-        margin-top: 3px;
-        margin-bottom: 5px;
-    }
+* {
+    font-family: Roboto;
+    margin: 0;
+    padding: 0;
+}
+hr {
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
 </style>

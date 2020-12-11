@@ -1,27 +1,17 @@
 <template>
-    <div class="d-flex justify-content-center">
-
-    </div>
+    <div class="d-flex justify-content-center"></div>
 </template>
 
 <script>
 export default {
-    data(){
-        return {
-            
-        }
+    data() {
+        return {}
     },
-    computed:{
-
-    },
-    methods:{
-        onSubmit(){
-
-        }
+    computed: {},
+    methods: {
+        onSubmit() {}
     }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

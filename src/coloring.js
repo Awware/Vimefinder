@@ -14,7 +14,7 @@ function GetColorByRank(rank, style) {
         color = '#58ABBD'
     } else if (rank === 'BUILDER' || rank === 'MAPLEAD') {
         color = '#3DD761'
-    } else if (rank === 'YOUTUBE'){
+    } else if (rank === 'YOUTUBE') {
         color = '#D24872'
     }
     style.color = color
@@ -24,6 +24,4 @@ function GetColorByRank(rank, style) {
     return style
 }
 
-export {
-    GetColorByRank
-}
+export { GetColorByRank }

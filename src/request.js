@@ -1,9 +1,9 @@
-async function request(url, method = 'GET', data = null){
-    try{
+async function request(url, method = 'GET', data = null) {
+    try {
         const headers = {}
         let body
 
-        if(data){
+        if (data) {
             headers['Content-Type'] = 'application/json'
             body = JSON.stringify(data)
         }
@@ -14,9 +14,9 @@ async function request(url, method = 'GET', data = null){
             body
         })
         return await response.json()
-    }catch(e) {
+    } catch (e) {
         console.warn('Error:', e.message)
     }
 }
 
-export {request}
+export { request }
