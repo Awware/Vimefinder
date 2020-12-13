@@ -1,26 +1,26 @@
 <template>
-    <b-row v-cloak>
-        <Person v-for="person in friends" :key="person.id" :person="person"/>
+    <b-row class="justify-content-center" v-cloak>
+        <Person v-for="person in friends" :key="person.id" :person="person" />
     </b-row>
 </template>
 
 <script>
-import Person from "@/components/Person"
+import Person from '@/components/Person'
 export default {
-    props:{
-        friends:{
+    props: {
+        friends: {
             type: Array,
             required: true
         }
     },
-    components:{
+    components: {
         Person
     }
 }
 </script>
 
 <style scoped>
-    [v-cloak]{
-        display: none;
-    }
+[v-cloak] {
+    display: none;
+}
 </style>

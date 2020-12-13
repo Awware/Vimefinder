@@ -1,9 +1,5 @@
 <template>
-    <b-card
-        class="ml-2"
-        :style="cardStyle"
-        style="box-shadow: 0px 5px 5px rgba(0,0,0,0.1); margin: 5px;"
-    >
+    <b-card class="cardPerson" :style="cardStyle">
         <b-card-body style="padding: 0">
             <p :style="{ color: getOnlineStatus() }" class="online-status">*</p>
             <div
@@ -171,6 +167,22 @@ export default {
     }
     100% {
         opacity: 1;
+    }
+}
+.cardPerson {
+    margin-left: 5px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 767px) {
+    .cardPerson {
+        width: 12rem !important;
+    }
+}
+@media (max-width: 480px) {
+    .cardPerson {
+        width: 20rem !important;
     }
 }
 </style>

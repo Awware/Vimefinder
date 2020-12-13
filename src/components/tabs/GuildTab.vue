@@ -1,21 +1,19 @@
 <template>
     <b-row>
-        <b-col cols="12">
-            <GuildInformation :guild="GuildFull"/>
-            <GuildMembers class="mt-2" :members="GuildMembers"/>
+        <b-col>
+            <GuildInformation :guild="GuildFull" />
+            <GuildMembers class="mt-2" :members="GuildMembers" />
         </b-col>
     </b-row>
 </template>
 
 <script>
-import GuildInformation from "@/components/GuildInformation"
-import GuildMembers from "@/components/GuildMembers"
-import {getSessionsByIds} from "@/vimerequests"
-import {
-    request
-} from "@/request"
+import GuildInformation from '@/components/GuildInformation'
+import GuildMembers from '@/components/GuildMembers'
+import { getSessionsByIds } from '@/vimerequests'
+import { request } from '@/request'
 export default {
-    components:{
+    components: {
         GuildInformation,
         GuildMembers
     },
@@ -26,9 +24,11 @@ export default {
         }
     },
     async mounted() {
-        const gettedGuild = await request(`http://localhost:5000/api/guild/${this.guild.id}`)
-        if(gettedGuild) this.GuildFull = gettedGuild
-        else console.error("Guild is null") 
+        const gettedGuild = await request(
+            `http://localhost:5000/api/guild/${this.guild.id}`
+        )
+        if (gettedGuild) this.GuildFull = gettedGuild
+        else console.error('Guild is null')
 
         let ids = []
         gettedGuild.members.map(member => ids.push(member.user.id))
@@ -37,7 +37,7 @@ export default {
 
         const sessions = await getSessionsByIds(ids)
 
-        gettedGuild.members.forEach((a, i) =>{
+        gettedGuild.members.forEach((a, i) => {
             customMembers.push({
                 username: a.user.username,
                 rank: a.user.rank,
@@ -48,20 +48,20 @@ export default {
 
         this.GuildMembers = customMembers
     },
-    props:['guild']
+    props: ['guild']
 }
 </script>
 
 <style scoped>
-    *{
-        font-family: Roboto;
-        margin:0;
-        padding:0;
-    }
-    hr{
-        padding: 0;
-        margin: 0;
-        margin-top: 3px;
-        margin-bottom: 5px;
-    }
+* {
+    font-family: Roboto;
+    margin: 0;
+    padding: 0;
+}
+hr {
+    padding: 0;
+    margin: 0;
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
 </style>

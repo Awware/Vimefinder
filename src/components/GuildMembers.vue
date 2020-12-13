@@ -5,10 +5,10 @@
             <hr />
         </b-card-title>
         <b-card-body style="padding: 0;" class="scrollable">
-            <b-row cols="4" class="mb-1" v-cloak>
+            <b-row class="justify-content-center mb-1" v-cloak>
                 <Person
                     v-for="person in members"
-                    pWidth="10rem"
+                    pWidth="9rem"
                     :guildCompat="true"
                     :key="person.id"
                     :person="person"

@@ -1,46 +1,41 @@
 <template>
-    <div>
-        <b-alert v-if="error" variant="danger" class="text-center" show>{{
-            error
-        }}</b-alert>
-        <Loader v-else-if="loading" />
-        <b-row v-else>
-            <b-col col lg="4">
-                <Session :user="user" />
-                <Partyfinder :user="user" />
-            </b-col>
-            <b-col col lg="8">
-                <b-card no-body>
-                    <b-tabs fill card>
-                        <b-tab class="scrollable" title="Друзья" active>
-                            <FriendsTab :friends="user.friendSessions" />
-                        </b-tab>
-                        <b-tab class="scrollable" title="Матчи">
-                            <MatchTab
-                                :matches="user.matches"
-                                :userId="user.id"
-                            />
-                        </b-tab>
-                        <b-tab class="scrollable" title="Статистика">
-                            <StatisticTab :user="user" />
-                        </b-tab>
-                        <b-tab
-                            class="scrollable"
-                            title="Гильдия"
-                            :disabled="!user.guild"
-                        >
-                            <GuildTab v-if="user.guild" :guild="user.guild" />
-                        </b-tab>
-                        <b-tab
-                            title="Доп. информация"
-                            :disabled="!serverData.received"
-                        >
-                        </b-tab>
-                    </b-tabs>
-                </b-card>
-            </b-col>
-        </b-row>
-    </div>
+    <b-alert v-if="error" variant="danger" class="text-center" show>{{
+        error
+    }}</b-alert>
+    <Loader v-else-if="loading" />
+    <b-row v-else>
+        <b-col class="mt-1" cols="12" md="4">
+            <Session :user="user" />
+            <Partyfinder :user="user" />
+        </b-col>
+        <b-col class="mt-1" cols="12" md="8">
+            <b-card no-body>
+                <b-tabs fill card>
+                    <b-tab class="scrollable" title="Друзья" active>
+                        <FriendsTab :friends="user.friendSessions" />
+                    </b-tab>
+                    <b-tab class="scrollable" title="Матчи">
+                        <MatchTab :matches="user.matches" :userId="user.id" />
+                    </b-tab>
+                    <b-tab class="scrollable" title="Статистика">
+                        <StatisticTab :user="user" />
+                    </b-tab>
+                    <b-tab
+                        class="scrollable"
+                        title="Гильдия"
+                        :disabled="!user.guild"
+                    >
+                        <GuildTab v-if="user.guild" :guild="user.guild" />
+                    </b-tab>
+                    <b-tab
+                        title="Доп. информация"
+                        :disabled="!serverData.received"
+                    >
+                    </b-tab>
+                </b-tabs>
+            </b-card>
+        </b-col>
+    </b-row>
 </template>
 
 <script>

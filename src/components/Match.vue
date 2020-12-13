@@ -1,49 +1,43 @@
 <template>
-    <div>
-        <b-card
-            style="height: 9rem; width:13rem;"
-            class="mt-2 mb-2 ml-4"
-            no-body
-        >
-            <b-card-title class="game-title">
-                {{ match.game | translateTitle }}
-                <span
-                    class="state-deg"
-                    :style="{ color: getStatusColor() }"
-                    v-b-tooltip.hover
-                    :title="getStatusTitle"
-                >
-                    *</span
-                >
+    <b-card style="height: 9rem; width:13rem;" class="matchCard" no-body>
+        <b-card-title class="game-title">
+            {{ match.game | translateTitle }}
+            <span
+                class="state-deg"
+                :style="{ color: getStatusColor() }"
+                v-b-tooltip.hover
+                :title="getStatusTitle"
+            >
+                *</span
+            >
+            <hr />
+        </b-card-title>
+        <b-card-body>
+            <div class="text-center">
+                <p v-if="match.map">
+                    <span class="text-muted">Карта: </span>
+                    <span
+                        :style="{
+                            fontSize:
+                                match.map.name.length > 14 ? '14px' : '16px'
+                        }"
+                        >{{ match.map.name }}</span
+                    >
+                </p>
+                <p v-else>Карта: неизвестно</p>
+                <p>
+                    <span class="text-muted">Игроков: </span>
+                    {{ match.players }}
+                </p>
+                <p>
+                    <span class="text-muted">Длительность: </span>
+                    {{ match.duration | normalDate }}
+                </p>
                 <hr />
-            </b-card-title>
-            <b-card-body>
-                <div class="text-center">
-                    <p v-if="match.map">
-                        <span class="text-muted">Карта: </span>
-                        <span
-                            :style="{
-                                fontSize:
-                                    match.map.name.length > 14 ? '14px' : '16px'
-                            }"
-                            >{{ match.map.name }}</span
-                        >
-                    </p>
-                    <p v-else>Карта: неизвестно</p>
-                    <p>
-                        <span class="text-muted">Игроков: </span>
-                        {{ match.players }}
-                    </p>
-                    <p>
-                        <span class="text-muted">Длительность: </span>
-                        {{ match.duration | normalDate }}
-                    </p>
-                    <hr />
-                    <p class="text-muted">{{ match.date | toLocaleDate }}</p>
-                </div>
-            </b-card-body>
-        </b-card>
-    </div>
+                <p class="text-muted">{{ match.date | toLocaleDate }}</p>
+            </div>
+        </b-card-body>
+    </b-card>
 </template>
 
 <script>
@@ -111,5 +105,19 @@ hr {
     top: -2px;
     transform: rotate(-45deg);
     font-size: 24px;
+}
+.matchCard {
+    margin-left: 7px;
+    margin-bottom: 7px;
+}
+@media (max-width: 1200px) {
+    .matchCard {
+        width: 17rem !important;
+    }
+}
+@media (max-width: 999px) {
+    .matchCard {
+        width: 23rem !important;
+    }
 }
 </style>

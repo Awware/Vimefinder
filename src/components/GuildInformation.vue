@@ -1,7 +1,9 @@
 <template>
     <b-card no-body>
         <b-card-title class="text-center mt-1 mb-1">
-            <h2>Информация о гильдии `{{ guild.name }}`</h2>
+            <p style="word-wrap: break-word;">
+                Информация о гильдии `{{ guild.name }}`
+            </p>
             <!-- soon -->
             <!-- <div style="">
                 <div style="width: 350px; heigth: 50px">
