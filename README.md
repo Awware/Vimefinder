@@ -1,6 +1,6 @@
 # Vimefinder
 ## Demonstation
-![Session](demo/newdemo.png)
+![Session](demo/demo.png)
 
 
 Server soon
