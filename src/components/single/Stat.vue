@@ -54,8 +54,7 @@ export default {
 hr {
     padding: 0;
     margin: 0;
-    margin-top: 3px;
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 .game-title {
     font-size: 15px;

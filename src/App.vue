@@ -1,5 +1,5 @@
 <template>
-    <b-container id="app">
+    <b-container style="max-width: 1450px" id="app">
         <b-navbar type="light" variant="light" class="mb-2">
             <b-navbar-brand to="/">Vimefinder</b-navbar-brand>
             <b-input-group>
@@ -96,5 +96,15 @@ export default {
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: #bebebe #f2f2f2;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f2f2f2;
+}
+::-webkit-scrollbar-thumb {
+    background: #bebebe;
 }
 </style>
