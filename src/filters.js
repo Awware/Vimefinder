@@ -116,7 +116,7 @@ function translateKeyTitle(value) {
         case 'wins_bwh':
             return "Побед в 'BWH'"
         case 'maxstrike':
-            return 'Максимальный стрик'
+            return 'Макс. стрик'
         case 'points':
             return 'Поинты'
         case 'mobsKilled':
@@ -142,7 +142,7 @@ function translateKeyTitle(value) {
         case 'currentWinStreak':
             return 'Текущий стрик'
         case 'winStreak':
-            return 'Максимальный стрик'
+            return 'Макс. стрик'
         case 'checkpoints':
             return 'Чекпоинты'
         case 'wins_as_innocent':
