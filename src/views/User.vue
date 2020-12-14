@@ -5,12 +5,12 @@
     <Loader v-else-if="loading" />
     <b-row v-else>
         <b-col class="mt-1" cols="12" md="4">
-            <Session :user="user" />
+            <Session :user="user" :toTab="toTab" />
             <Partyfinder :user="user" />
         </b-col>
         <b-col class="mt-1" cols="12" md="8">
             <b-card no-body>
-                <b-tabs fill card>
+                <b-tabs v-model="tabIndex" fill card>
                     <b-tab class="scrollable" title="Друзья" active>
                         <FriendsTab :friends="user.friendSessions" />
                     </b-tab>
@@ -44,7 +44,7 @@ import Session from '@/components/blocks/Session'
 import Partyfinder from '@/components/blocks/Partyfinder'
 
 //Other components
-import Loader from '@/components/Loader'
+import Loader from '@/components/single/Loader'
 
 //Tabs
 import MatchTab from '@/components/tabs/MatchTab'
@@ -53,8 +53,14 @@ import StatisticTab from '@/components/tabs/StatisticTab'
 import GuildTab from '@/components/tabs/GuildTab'
 
 //JS
-import { request } from '@/request'
-import { getSessionsByIds } from '@/vimerequests'
+import {
+    getSessionsByIds,
+    getRawUser,
+    getSessionById,
+    getFriendsById,
+    getMatchesById
+} from '@/vimerequests'
+
 export default {
     components: {
         Loader,
@@ -71,6 +77,7 @@ export default {
             error: '',
             username: '',
             user: {},
+            tabIndex: 1,
             //todo, additional information
             serverData: {
                 received: false
@@ -83,6 +90,9 @@ export default {
         }
     },
     methods: {
+        toTab(value) {
+            this.tabIndex = value
+        },
         async update() {
             this.user.matches = []
 
@@ -91,9 +101,7 @@ export default {
             let arrayOfPaths = window.location.pathname.split('/')
             this.username = arrayOfPaths[arrayOfPaths.length - 1]
 
-            let rawUser = await request(
-                `http://localhost:5000/api/user/${this.username}`
-            )
+            let rawUser = await getRawUser(this.username)
 
             rawUser = rawUser[0]
 
@@ -105,9 +113,8 @@ export default {
                 this.user.id = rawUser.id
                 this.user.lvlperc = rawUser.levelPercentage
 
-                const session = await request(
-                    `http://localhost:5000/api/user/${this.user.id}/session`
-                )
+                const session = await getSessionById(this.user.id)
+
                 this.user.rawSession = session
                 this.user.online = session.online.value
                 this.user.online_message = session.online.message
@@ -119,22 +126,19 @@ export default {
                 ).toFixed(1)
                 this.user.guild = session.user.guild
 
-                const userFriends = await request(
-                    `http://localhost:5000/api/user/${this.user.id}/friends`
-                )
+                const userFriends = await getFriendsById(this.user.id)
+
                 this.user.friends = userFriends.friends
 
                 this.user.friendSessions = []
 
                 let fIds = []
                 this.user.friends.map(friend => fIds.push(friend.id))
-                //for(const friend in this.user.friends) fIds.push(this.user.friends[friend].id)
 
                 this.user.friendSessions = await getSessionsByIds(fIds)
 
-                const matches = await request(
-                    `http://localhost:5000/api/user/${this.user.id}/matches?count=10&offset=0`
-                )
+                const matches = await getMatchesById(this.user.id)
+
                 if (matches.request.size) this.user.matches = matches.matches
             } else {
                 this.error = 'Игрок не найден!'

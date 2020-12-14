@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Person from '@/components/Person'
+import Person from '@/components/single/Person'
 export default {
     props: {
         friends: {

@@ -19,3 +19,21 @@ export async function getSessionsByIds(ids, limit = 49) {
         )
     return sessions
 }
+
+export async function getRawUser(username) {
+    return await request(`http://localhost:5000/api/user/${username}`)
+}
+
+export async function getSessionById(id) {
+    return await request(`http://localhost:5000/api/user/${id}/session`)
+}
+
+export async function getFriendsById(id) {
+    return await request(`http://localhost:5000/api/user/${id}/friends`)
+}
+
+export async function getMatchesById(id, count = 10, offset = 0) {
+    return await request(
+        `http://localhost:5000/api/user/${id}/matches?count=${count}&offset=${offset}`
+    )
+}

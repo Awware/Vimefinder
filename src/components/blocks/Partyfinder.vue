@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import Loader from '@/components/Loader'
-import PlayerInParty from '@/components/PlayerInParty'
+import Loader from '@/components/single/Loader'
+import PlayerInParty from '@/components/single/PlayerInParty'
 import { request } from '@/request'
 export default {
     data() {

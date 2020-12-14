@@ -14,9 +14,10 @@
 </template>
 
 <script>
-import Loader from '@/components/Loader'
-import Match from '@/components/Match'
-import { request } from '@/request'
+import Loader from '@/components/single/Loader'
+import Match from '@/components/single/Match'
+
+import { getMatchesById } from '@/vimerequests'
 export default {
     components: {
         Loader,
@@ -42,11 +43,13 @@ export default {
     methods: {
         async loadMore() {
             this.loading = true
-            const recMatches = await request(
-                `http://localhost:5000/api/user/${this.userId}/matches?count=${this.count}&offset=${this.offset}`
+            const recMatches = await getMatchesById(
+                this.userId,
+                this.count,
+                this.offset
             )
             if (recMatches.request.size) {
-                Array.prototype.push.apply(this.matches, recMatches.matches)
+                this.matches = this.matches.concat(recMatches.matches)
                 this.offset += 10
             }
             this.loading = false

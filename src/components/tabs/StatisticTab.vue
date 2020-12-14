@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Stat from '@/components/Stat'
+import Stat from '@/components/single/Stat'
 import { request } from '@/request'
 export default {
     components: {

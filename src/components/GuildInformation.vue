@@ -4,16 +4,6 @@
             <p style="word-wrap: break-word;">
                 Информация о гильдии `{{ guild.name }}`
             </p>
-            <!-- soon -->
-            <!-- <div style="">
-                <div style="width: 350px; heigth: 50px">
-                    <b-progress max="1" height="25px" class="ml-2 mr-2" variant="secondary" show-label>
-                        <b-progress-bar striped animated :value="guild.levelPercentage">
-                            <p style="color: #F0F0F0; font-size: 16px" class="d-flex w-100">{{guild.level}}lvl | {{(guild.levelPercentage * 100).toFixed(0)}}%</p>
-                        </b-progress-bar>
-                    </b-progress>
-                </div>
-            </div> -->
             <hr />
         </b-card-title>
         <b-card-body>
@@ -53,7 +43,6 @@ export default {
         toLocaleDate,
         replaceShit: value => {
             return value
-            //return value.replace('<br><br>','<br>').replace('<strong>', '').replace('</strong>', '')
         }
     }
 }
