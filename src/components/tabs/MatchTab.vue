@@ -14,20 +14,11 @@
 </template>
 
 <script>
-import Loader from '@/components/single/Loader'
-import Match from '@/components/single/Match'
-
-import { getMatchesById } from '@/vimerequests'
 export default {
   components: {
-    Loader,
-    Match
+    Match: () => import('@/components/single/Match')
   },
   props: {
-    matches: {
-      type: Array,
-      required: true
-    },
     userId: {
       type: Number,
       required: true
@@ -40,18 +31,29 @@ export default {
       offset: 10
     }
   },
+  computed: {
+    matches() {
+      return this.$store.getters.matches
+    }
+  },
+  async mounted() {
+    this.loading = true
+    await this.$store.dispatch('getMatches', this.userId)
+    this.loading = false
+  },
+  beforeDestroy() {
+    this.$store.commit('clearMatches')
+  },
   methods: {
     async loadMore() {
       this.loading = true
-      const recMatches = await getMatchesById(
+      await this.$store.dispatch(
+        'appendMatches',
         this.userId,
         this.count,
         this.offset
       )
-      if (recMatches.request.size) {
-        this.matches = this.matches.concat(recMatches.matches)
-        this.offset += 10
-      }
+      this.offset += 10
       this.loading = false
     }
   }
@@ -59,9 +61,6 @@ export default {
 </script>
 
 <style scoped>
-[v-cloak] {
-  display: none;
-}
 .load-more {
   height: 45px;
   width: 180px;

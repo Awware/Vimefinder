@@ -40,10 +40,7 @@ export default {
   },
   props: ['guild'],
   filters: {
-    toLocaleDate,
-    replaceShit: value => {
-      return value
-    }
+    toLocaleDate
   }
 }
 </script>

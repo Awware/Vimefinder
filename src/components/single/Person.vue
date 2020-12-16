@@ -1,7 +1,7 @@
 <template>
   <b-card class="cardPerson" :style="cardStyle">
     <b-card-body style="padding: 0">
-      <p :style="{ color: getOnlineStatus() }" class="online-status">*</p>
+      <p :style="online" class="online-status">*</p>
       <div
         style="display:flex; justify-content: center; align-items:center; margin-bottom:3px"
       >
@@ -41,6 +41,11 @@ export default {
       cardStyle: {}
     }
   },
+  computed: {
+    online() {
+      return { color: this.person.online.value ? '#8DCA4C' : '#DB4C60' }
+    }
+  },
   props: {
     person: {
       type: Object,
@@ -60,12 +65,6 @@ export default {
       type: Boolean,
       required: false,
       default: false
-    }
-  },
-  methods: {
-    getOnlineStatus() {
-      if (this.person.online.value) return '#8DCA4C'
-      else return '#DB4C60'
     }
   },
   mounted() {

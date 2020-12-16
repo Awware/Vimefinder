@@ -1,4 +1,4 @@
-span<template>
+<template>
   <b-card style="height: 9rem; width:13rem;" class="matchCard" no-body>
     <b-card-title class="game-title">
       {{ match.game | translateTitle }}
@@ -48,6 +48,7 @@ export default {
       required: true
     }
   },
+  //To computed
   methods: {
     getStatusColor() {
       if (this.match.state) {

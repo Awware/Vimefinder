@@ -13,9 +13,9 @@
     </template>
     <Loader v-if="loading" />
     <div v-else>
-      <div v-if="parties.users.length && !error">
+      <div v-if="parties.length && !error">
         <PlayerInParty
-          v-for="party in parties.users"
+          v-for="party in parties"
           :key="party.id"
           :party="party"
         />
@@ -31,37 +31,37 @@
 </template>
 
 <script>
-import Loader from '@/components/single/Loader'
 import PlayerInParty from '@/components/single/PlayerInParty'
-import { getPartyMembers } from '@/vimerequests'
 export default {
   data() {
     return {
-      loading: false,
-      parties: {
-        users: []
-      },
-      error: ''
+      loading: false
+    }
+  },
+  computed: {
+    user() {
+      return this.$store.getters.user
+    },
+    parties() {
+      return this.$store.getters.parties
+    },
+    error() {
+      return this.$store.getters.error
     }
   },
   components: {
-    Loader,
     PlayerInParty
-  },
-  props: {
-    user: {
-      type: Object,
-      required: true
-    }
   },
   methods: {
     async update() {
       this.loading = true
-      const rawResponse = await getPartyMembers(this.user.id)
-      if (rawResponse.message) this.error = rawResponse.message
-      else this.parties.users = rawResponse
+      await this.$store.dispatch('getParties', this.user.id)
       this.loading = false
     }
+  },
+  beforeDestroy() {
+    this.$store.commit('clearParties')
+    this.$store.commit('clearError')
   }
 }
 </script>

@@ -5,22 +5,17 @@
 </template>
 
 <script>
-import Person from '@/components/single/Person'
 export default {
-  props: {
-    friends: {
-      type: Array,
-      required: true
+  computed: {
+    friends() {
+      return this.$store.getters.friends
     }
   },
   components: {
-    Person
-  }
+    Person: () => import('@/components/single/Person')
+  },
+  async mounted() {}
 }
 </script>
 
-<style scoped>
-[v-cloak] {
-  display: none;
-}
-</style>
+<style scoped></style>

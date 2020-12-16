@@ -1,4 +1,4 @@
-function GetColorByRank(rank, style) {
+export function GetColorByRank(rank, style) {
   let color = '#ACACAC'
   if (rank === 'HOLY') {
     color = '#E67F4C'
@@ -23,5 +23,3 @@ function GetColorByRank(rank, style) {
   }
   return style
 }
-
-export { GetColorByRank }

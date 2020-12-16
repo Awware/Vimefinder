@@ -11,25 +11,26 @@
 
 <script>
 import Stat from '@/components/single/Stat'
-import { getStatsById } from '@/vimerequests'
 export default {
   components: {
     Stat
   },
   props: {
-    user: {
-      type: Object,
+    userId: {
+      type: Number,
       required: true
     }
   },
-  data() {
-    return {
-      stats: {}
+  computed: {
+    stats() {
+      return this.$store.getters.stats
     }
   },
   async mounted() {
-    let rawStats = await getStatsById(this.user.id)
-    if (rawStats.stats) this.stats = rawStats.stats
+    await this.$store.dispatch('getStats', this.userId)
+  },
+  beforeDestroy() {
+    this.$store.commit('clearStats')
   }
 }
 </script>
