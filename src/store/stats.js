@@ -1,4 +1,4 @@
-import { getStatsById } from '@/vimerequests'
+import { getStatsById } from '@/utils/vimerequests'
 
 export default {
   state: {

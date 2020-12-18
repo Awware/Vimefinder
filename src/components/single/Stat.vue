@@ -35,8 +35,8 @@ export default {
     }
   },
   filters: {
-    translateTitle: value => translateTitle(value),
-    translateKeyTitle: value => translateKeyTitle(value),
+    translateTitle,
+    translateKeyTitle,
     translatePrisonBlocks: value => {
       if (typeof value === 'object') return 'soon'
       return value

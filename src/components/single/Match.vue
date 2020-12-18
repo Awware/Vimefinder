@@ -4,9 +4,9 @@
       {{ match.game | translateTitle }}
       <span
         class="state-deg"
-        :style="{ color: getStatusColor() }"
+        :style="{ color: statusColor }"
         v-b-tooltip.hover
-        :title="getStatusTitle"
+        :title="statusTitle"
       >
         *</span
       >
@@ -48,9 +48,8 @@ export default {
       required: true
     }
   },
-  //To computed
-  methods: {
-    getStatusColor() {
+  computed: {
+    statusColor() {
       if (this.match.state) {
         if (this.match.state === 1) return '#7BBD4F'
         else if (this.match.state === 0) return '#D15252'
@@ -60,7 +59,7 @@ export default {
         else return '#D15252'
       }
     },
-    getStatusTitle() {
+    statusTitle() {
       if (this.match.state) {
         if (this.match.state === 1) return 'Победа'
         else if (this.match.state === 0) return 'Поражение'

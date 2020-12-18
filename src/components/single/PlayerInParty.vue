@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import { GetColorByRank } from '@/coloring'
+import { GetColorByRank } from '@/utils/coloring'
 export default {
   data() {
     return {

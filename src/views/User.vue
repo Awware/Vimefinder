@@ -5,7 +5,7 @@
   <Loader v-else-if="loading" />
   <b-row v-else>
     <b-col class="mt-1" cols="12" md="4">
-      <Session @toGuild="tabIndex = 3" />
+      <Session />
       <Partyfinder :user="user" />
     </b-col>
     <b-col class="mt-1" cols="12" md="8">
@@ -57,7 +57,6 @@ export default {
       loading: true,
       error: '',
       username: '',
-      tabIndex: 1,
       //todo, additional information
       serverData: {
         received: false
@@ -70,6 +69,14 @@ export default {
     },
     user() {
       return this.$store.getters.user
+    },
+    tabIndex: {
+      get() {
+        return this.$store.getters.tabIndex
+      },
+      set(value) {
+        this.$store.commit('setTabIndex', value)
+      }
     }
   },
   methods: {
@@ -86,6 +93,7 @@ export default {
   },
   beforeDestroy() {
     this.$store.commit('clearUser')
+    this.$store.commit('setDefaultTabIndex')
   },
   watch: {
     async getFullPath() {

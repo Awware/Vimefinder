@@ -1,4 +1,4 @@
-import { getFriendsById, getSessionsByIds } from '@/vimerequests'
+import { getFriendsById, getSessionsByIds } from '@/utils/vimerequests'
 
 //Friends sessions
 export default {
@@ -20,8 +20,7 @@ export default {
       let fIds = []
       rawFriends.map(friend => fIds.push(friend.id))
 
-      const friends = await getSessionsByIds(fIds)
-      commit('setFriends', friends)
+      commit('setFriends', await getSessionsByIds(fIds))
     }
   },
   getters: {

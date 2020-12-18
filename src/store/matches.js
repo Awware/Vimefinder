@@ -1,4 +1,4 @@
-import { getMatchesById } from '@/vimerequests'
+import { getMatchesById } from '@/utils/vimerequests'
 
 export default {
   state: {

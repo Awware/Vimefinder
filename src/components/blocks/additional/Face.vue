@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { preload } from '@/preload'
+import { preload } from '@/utils/preload'
 export default {
   data() {
     return {
@@ -58,7 +58,9 @@ export default {
     preload(`https://skin.vimeworld.ru/head/${this.username}.png?_=16057785`)
     preload(
       `https://skin.vimeworld.ru/raw/skin/${this.username}.png?_=16057785`,
-      () => (this.preloadImage = true)
+      () => {
+        this.preloadImage = true
+      }
     )
   }
 }

@@ -1,4 +1,4 @@
-import { getPartyMembers } from '@/vimerequests'
+import { getPartyMembers } from '@/utils/vimerequests'
 export default {
   state: {
     parties: [],

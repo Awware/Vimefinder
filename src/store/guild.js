@@ -1,4 +1,4 @@
-import { getSessionsByIds, getGuildById } from '@/vimerequests'
+import { getSessionsByIds, getGuildById } from '@/utils/vimerequests'
 
 export default {
   state: {

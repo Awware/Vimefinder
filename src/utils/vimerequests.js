@@ -1,4 +1,4 @@
-import { request } from '@/request'
+import { request } from '@/utils/request'
 export async function getSessionsByIds(ids, limit = 49) {
   let sessions = []
   if (ids.length >= limit) {

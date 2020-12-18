@@ -4,7 +4,7 @@ import matches from './matches'
 import stats from './stats'
 import guild from './guild'
 
-import { getRawUser } from '@/vimerequests'
+import { getRawUser } from '@/utils/vimerequests'
 
 export default {
   state: {

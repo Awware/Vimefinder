@@ -27,7 +27,7 @@
 
 <script>
 import Face from '@/components/blocks/additional/Face'
-import { GetColorByRank } from '@/coloring'
+import { GetColorByRank } from '@/utils/coloring'
 export default {
   components: {
     Face
