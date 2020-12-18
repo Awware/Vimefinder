@@ -1,6 +1,11 @@
 <template>
   <b-row class="justify-content-center">
-    <Person v-for="person in friends" :key="person.id" :person="person" />
+    <Person
+      v-cloak
+      v-for="person in friends"
+      :key="person.id"
+      :person="person"
+    />
   </b-row>
 </template>
 

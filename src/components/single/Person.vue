@@ -109,18 +109,6 @@ export default {
   animation: online_status_anim 1s ease-in-out infinite;
 }
 
-@keyframes leader {
-  0% {
-    transform: scale(5);
-  }
-  50% {
-    transform: scale(4);
-  }
-  100% {
-    transform: scale(3);
-  }
-}
-
 @keyframes online_status_anim {
   0% {
     opacity: 1;
