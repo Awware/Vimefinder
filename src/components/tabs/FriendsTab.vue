@@ -10,11 +10,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
-    friends() {
-      return this.$store.getters.friends
-    }
+    ...mapGetters(['friends'])
   },
   components: {
     Person: () => import('@/components/single/Person')

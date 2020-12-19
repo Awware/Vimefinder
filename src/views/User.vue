@@ -42,6 +42,8 @@ import FriendsTab from '@/components/tabs/FriendsTab'
 import StatisticTab from '@/components/tabs/StatisticTab'
 import GuildTab from '@/components/tabs/GuildTab'
 
+import { mapGetters } from 'vuex'
+
 export default {
   components: {
     Session,
@@ -64,11 +66,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['user']),
     getFullPath() {
       return this.$route.path
-    },
-    user() {
-      return this.$store.getters.user
     },
     tabIndex: {
       get() {

@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import GuildInformation from '@/components/GuildInformation'
 import GuildMembers from '@/components/GuildMembers'
 export default {
@@ -16,12 +17,7 @@ export default {
     GuildMembers
   },
   computed: {
-    guild() {
-      return this.$store.getters.guild
-    },
-    members() {
-      return this.$store.getters.members
-    }
+    ...mapGetters(['guild', 'members'])
   },
   async mounted() {
     await this.$store.dispatch('getGuildAndMembers', this.guildID)

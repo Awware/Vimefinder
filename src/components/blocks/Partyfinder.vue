@@ -13,15 +13,15 @@
     </template>
     <Loader v-if="loading" />
     <div v-else>
-      <div v-if="parties.length && !error">
+      <div v-if="parties.length && !partyMessage">
         <PlayerInParty
           v-for="party in parties"
           :key="party.id"
           :party="party"
         />
       </div>
-      <p v-else-if="error" class="text-center" style="color: #9A5364">
-        {{ error ? error : 'Неизвестная ошибка!' }}
+      <p v-else-if="partyMessage" class="text-center" style="color: #9A5364">
+        {{ partyMessage ? partyMessage : 'Неизвестная ошибка!' }}
       </p>
       <p v-else class="text-center" style="color: #6894dd">
         Нажми на кнопку ниже
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import PlayerInParty from '@/components/single/PlayerInParty'
 export default {
   data() {
@@ -39,15 +41,7 @@ export default {
     }
   },
   computed: {
-    user() {
-      return this.$store.getters.user
-    },
-    parties() {
-      return this.$store.getters.parties
-    },
-    error() {
-      return this.$store.getters.error
-    }
+    ...mapGetters(['user', 'parties', 'partyMessage'])
   },
   components: {
     PlayerInParty
@@ -61,7 +55,7 @@ export default {
   },
   beforeDestroy() {
     this.$store.commit('clearParties')
-    this.$store.commit('clearError')
+    this.$store.commit('clearPartyMessage')
   }
 }
 </script>

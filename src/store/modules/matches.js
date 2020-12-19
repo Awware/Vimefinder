@@ -17,12 +17,12 @@ export default {
   },
   actions: {
     async getMatches({ commit }, id) {
-      const { matches } = await getMatchesById(id)
-      if (matches.request.size) commit('setMatches', matches)
+      const { matches, request } = await getMatchesById(id)
+      if (request.size) commit('setMatches', matches)
     },
     async appendMatches({ commit }, id, count, offset) {
-      const { matches } = await getMatchesById(id, count, offset)
-      if (matches.request.size) commit('appendMatches', matches)
+      const { matches, request } = await getMatchesById(id, count, offset)
+      if (request.size) commit('appendMatches', matches)
     }
   },
   getters: {

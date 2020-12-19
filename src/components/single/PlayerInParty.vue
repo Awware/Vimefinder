@@ -2,7 +2,7 @@
   <div class="text-center">
     <a
       target="_blank"
-      :style="style_nickname"
+      :style="styleName"
       class="font-weight-bold"
       :href="'/user/' + party.username"
       >{{ party.username }}</a
@@ -25,7 +25,7 @@ import { GetColorByRank } from '@/utils/coloring'
 export default {
   data() {
     return {
-      style_nickname: {
+      styleName: {
         color: '#88888'
       }
     }
@@ -36,9 +36,8 @@ export default {
       required: true
     }
   },
-  methods: {},
   mounted() {
-    this.style_nickname = GetColorByRank(this.party.rank, this.style_nickname)
+    this.styleName = GetColorByRank(this.party.rank, this.styleName)
   }
 }
 </script>

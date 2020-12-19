@@ -2,27 +2,27 @@ import { getPartyMembers } from '@/utils/vimerequests'
 export default {
   state: {
     parties: [],
-    error: ''
+    partyMessage: ''
   },
   mutations: {
     setParties(state, parties) {
       state.parties = parties
     },
-    setError(state, error) {
-      state.error = error
+    setPartyMessage(state, partyMessage) {
+      state.partyMessage = partyMessage
     },
     clearParties(state) {
       state.parties = []
     },
-    clearError(state) {
-      state.error = ''
+    clearPartyMessage(state) {
+      state.partyMessage = ''
     }
   },
   actions: {
     async getParties({ commit }, id) {
       try {
         const parties = await getPartyMembers(id)
-        if (parties.message) commit('setError', parties.message)
+        if (parties.message) commit('setPartyMessage', parties.message)
         else commit('setParties', parties)
       } catch (e) {
         console.log(e)
@@ -31,6 +31,6 @@ export default {
   },
   getters: {
     parties: s => s.parties,
-    error: s => s.error
+    partyMessage: s => s.partyMessage
   }
 }

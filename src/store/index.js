@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import partyfinder from './partyfinder'
-import user from './user'
-import tabs from './tabs'
+import partyfinder from './modules/partyfinder'
+import user from './modules/user'
+import tabs from './modules/tabs'
 
 Vue.use(Vuex)
 

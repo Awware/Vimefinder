@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Match: () => import('@/components/single/Match')
@@ -32,9 +33,7 @@ export default {
     }
   },
   computed: {
-    matches() {
-      return this.$store.getters.matches
-    }
+    ...mapGetters(['matches'])
   },
   async mounted() {
     this.loading = true

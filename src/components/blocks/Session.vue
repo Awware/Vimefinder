@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Face from './additional/Face'
 import SessionSkeleton from '@/components/skeletons/SessionSkeleton'
 
@@ -41,9 +42,7 @@ export default {
     }
   },
   computed: {
-    user() {
-      return this.$store.getters.user
-    }
+    ...mapGetters(['user'])
   },
   async mounted() {
     await this.$store.dispatch('getSession', this.user.id)

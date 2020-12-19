@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Stat from '@/components/single/Stat'
 export default {
   components: {
@@ -22,9 +23,7 @@ export default {
     }
   },
   computed: {
-    stats() {
-      return this.$store.getters.stats
-    }
+    ...mapGetters(['stats'])
   },
   async mounted() {
     await this.$store.dispatch('getStats', this.userId)
