@@ -15,10 +15,10 @@ export default {
   },
   actions: {
     async getFriends({ commit }, id) {
-      const rawFriends = (await getFriendsById(id)).friends
+      const { friends } = await getFriendsById(id)
 
       let fIds = []
-      rawFriends.map(friend => fIds.push(friend.id))
+      friends.map(friend => fIds.push(friend.id))
 
       commit('setFriends', await getSessionsByIds(fIds))
     }

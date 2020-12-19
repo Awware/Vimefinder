@@ -21,7 +21,7 @@ export default {
   actions: {
     //Get `raw` user
     async getUser({ commit }, username) {
-      const rawUser = (await getRawUser(username))[0]
+      const [rawUser] = await getRawUser(username)
       if (rawUser) {
         const user = {
           username,
