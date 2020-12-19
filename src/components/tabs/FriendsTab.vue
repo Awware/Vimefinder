@@ -12,9 +12,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  computed: {
-    ...mapGetters(['friends'])
-  },
+  computed: mapGetters(['friends']),
   components: {
     Person: () => import('@/components/single/Person')
   }

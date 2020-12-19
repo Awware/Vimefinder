@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Stat from '@/components/single/Stat'
 export default {
   components: {
@@ -22,14 +22,16 @@ export default {
       required: true
     }
   },
-  computed: {
-    ...mapGetters(['stats'])
+  methods: {
+    ...mapActions(['getStats']),
+    ...mapMutations(['clearStats'])
   },
+  computed: mapGetters(['stats']),
   async mounted() {
-    await this.$store.dispatch('getStats', this.userId)
+    await this.getStats(this.userId)
   },
   beforeDestroy() {
-    this.$store.commit('clearStats')
+    this.clearStats()
   }
 }
 </script>

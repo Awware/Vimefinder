@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+
 import GuildInformation from '@/components/GuildInformation'
 import GuildMembers from '@/components/GuildMembers'
 export default {
@@ -16,15 +17,17 @@ export default {
     GuildInformation,
     GuildMembers
   },
-  computed: {
-    ...mapGetters(['guild', 'members'])
+  methods: {
+    ...mapActions(['getGuildAndMembers']),
+    ...mapMutations(['clearGuild', 'clearMembers'])
   },
+  computed: mapGetters(['guild', 'members']),
   async mounted() {
-    await this.$store.dispatch('getGuildAndMembers', this.guildID)
+    await this.getGuildAndMembers(this.guildID)
   },
   beforeDestroy() {
-    this.$store.commit('clearGuild')
-    this.$store.commit('clearMembers')
+    this.clearGuild()
+    this.clearMembers()
   },
   props: ['guildID']
 }

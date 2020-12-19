@@ -37,20 +37,11 @@
 </template>
 <script>
 import { toLocaleDate } from '@/filters'
+import { mapGetters } from 'vuex'
 export default {
   filters: {
     toLocaleDate
   },
-  computed: {
-    user() {
-      return this.$store.getters.user
-    },
-    session() {
-      return this.$store.getters.session
-    },
-    friends() {
-      return this.$store.getters.friends
-    }
-  }
+  computed: mapGetters(['user', 'session', 'friends'])
 }
 </script>

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   components: {
     Match: () => import('@/components/single/Match')
@@ -32,29 +32,27 @@ export default {
       offset: 10
     }
   },
-  computed: {
-    ...mapGetters(['matches'])
-  },
+  computed: mapGetters(['matches']),
+
   async mounted() {
     this.loading = true
-    await this.$store.dispatch('getMatches', this.userId)
+    await this.getMatches(this.userId)
     this.loading = false
   },
-  beforeDestroy() {
-    this.$store.commit('clearMatches')
-  },
+
   methods: {
+    ...mapMutations(['clearMatches']),
+    ...mapActions(['getMatches', 'appendMatches']),
     async loadMore() {
       this.loading = true
-      await this.$store.dispatch(
-        'appendMatches',
-        this.userId,
-        this.count,
-        this.offset
-      )
+      await this.appendMatches(this.userId, this.count, this.offset)
       this.offset += 10
       this.loading = false
     }
+  },
+
+  beforeDestroy() {
+    this.clearMatches()
   }
 }
 </script>

@@ -35,9 +35,6 @@ export default {
   },
   props: {
     usr: {
-      // rank: { required: true, type: String },
-      // username: { required: true, type: String },
-      // lvl: { required: true, type: Number },
       required: true,
       type: Object
     }

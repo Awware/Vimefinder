@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 import PlayerInParty from '@/components/single/PlayerInParty'
 export default {
@@ -40,22 +40,22 @@ export default {
       loading: false
     }
   },
-  computed: {
-    ...mapGetters(['user', 'parties', 'partyMessage'])
-  },
+  computed: mapGetters(['user', 'parties', 'partyMessage']),
   components: {
     PlayerInParty
   },
   methods: {
+    ...mapMutations(['clearParties', 'clearPartyMessage']),
+    ...mapActions(['getParties']),
     async update() {
       this.loading = true
-      await this.$store.dispatch('getParties', this.user.id)
+      await this.getParties(this.user.id)
       this.loading = false
     }
   },
   beforeDestroy() {
-    this.$store.commit('clearParties')
-    this.$store.commit('clearPartyMessage')
+    this.clearParties()
+    this.clearPartyMessage()
   }
 }
 </script>

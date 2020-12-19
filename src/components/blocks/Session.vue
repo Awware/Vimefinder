@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Face from './additional/Face'
 import SessionSkeleton from '@/components/skeletons/SessionSkeleton'
 
@@ -41,18 +41,19 @@ export default {
       loading: true
     }
   },
-  computed: {
-    ...mapGetters(['user'])
-  },
+  computed: mapGetters(['user']),
   async mounted() {
-    await this.$store.dispatch('getSession', this.user.id)
-    await this.$store.dispatch('getFriends', this.user.id)
+    await this.getSession(this.user.id)
+    await this.getFriends(this.user.id)
     this.loading = false
   },
+  methods: {
+    ...mapActions(['getSession', 'getFriends']),
+    ...mapMutations(['clearSession', 'clearFriends'])
+  },
   beforeDestroy() {
-    this.$store.commit('clearSession')
-    this.$store.commit('clearFriends')
-    this.$store.commit('clearLoaded')
+    this.clearSession()
+    this.clearFriends()
   }
 }
 </script>
