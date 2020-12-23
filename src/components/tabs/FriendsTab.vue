@@ -2,12 +2,15 @@
   <b-row class="justify-content-center">
     <Loader v-if="loading" />
     <Person
-      v-else
+      v-else-if="!loading && friends.length > 0"
       v-cloak
       v-for="person in friends"
       :key="person.id"
       :person="person"
     />
+    <b-alert v-else variant="danger" class="no-friends" show
+      >У пользователя нет друзей ;(</b-alert
+    >
   </b-row>
 </template>
 
@@ -27,11 +30,14 @@ export default {
 </script>
 
 <style scoped>
-[v-cloak] > * {
-  display: none;
-}
 * {
   padding: 0;
   margin: 0;
+}
+.no-friends {
+  padding-left: 120px;
+  padding-right: 120px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 </style>
