@@ -52,18 +52,13 @@
         ></span>
       </b-list-group-item>
     </template>
-
-    <SessionItems />
+    <slot></slot>
   </b-skeleton-wrapper>
 </template>
 
 <script>
-import SessionItems from '@/components/blocks/additional/SessionItems'
 export default {
-  props: ['value'],
-  components: {
-    SessionItems
-  }
+  props: ['value']
 }
 </script>
 
