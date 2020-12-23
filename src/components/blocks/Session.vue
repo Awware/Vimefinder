@@ -2,7 +2,7 @@
   <b-list-group>
     <b-list-group-item style="border-bottom: none;">
       <Face :username="user.username" />
-      <VimetopLogo />
+      <VimetopLogo :username="user.username" />
       <Base
         :usr="{
           username: user.username,
