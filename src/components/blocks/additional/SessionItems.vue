@@ -24,7 +24,7 @@
     <b-list-group-item>
       Гильдия:
       <span v-if="user.guild">
-        <a @click.prevent="$store.commit('setTabIndex', 3)" href="#"
+        <a @click.prevent="setTabIndex(3)" href="#"
           >{{ user.guild.tag && `[${user.guild.tag}] |` }}
           {{ user.guild.name }}</a
         >
@@ -37,11 +37,12 @@
 </template>
 <script>
 import { toLocaleDate } from '@/filters'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   filters: {
     toLocaleDate
   },
-  computed: mapGetters(['user', 'session', 'friends'])
+  computed: mapGetters(['user', 'session', 'friends']),
+  methods: mapMutations(['setTabIndex'])
 }
 </script>

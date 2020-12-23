@@ -69,7 +69,7 @@ export default {
     ...mapGetters(['user', '_tabIndex']),
     tabIndex: {
       get() {
-        return this.tabIndexGetter
+        return this._tabIndex
       },
       set(value) {
         this.setTabIndex(value)
