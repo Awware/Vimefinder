@@ -3,14 +3,14 @@ import { getFriendsById, getSessionsByIds } from '@/utils/vimerequests'
 //Friends sessions
 export default {
   state: {
-    friends: []
+    friends: void 0
   },
   mutations: {
     setFriends(state, friends) {
       state.friends = friends
     },
     clearFriends(state) {
-      state.friends = []
+      state.friends = void 0
     }
   },
   actions: {

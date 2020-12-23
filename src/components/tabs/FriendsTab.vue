@@ -1,6 +1,8 @@
 <template>
   <b-row class="justify-content-center">
+    <Loader v-if="loading" />
     <Person
+      v-else
       v-cloak
       v-for="person in friends"
       :key="person.id"
@@ -12,7 +14,12 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  computed: mapGetters(['friends']),
+  computed: {
+    ...mapGetters(['friends']),
+    loading() {
+      return this.friends == undefined
+    }
+  },
   components: {
     Person: () => import('@/components/single/Person')
   }
@@ -20,7 +27,7 @@ export default {
 </script>
 
 <style scoped>
-[v-cloak] {
+[v-cloak] > * {
   display: none;
 }
 * {

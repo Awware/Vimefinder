@@ -11,6 +11,6 @@ export default {
     }
   },
   getters: {
-    tabIndex: s => s.tabIndex
+    _tabIndex: s => s.tabIndex
   }
 }

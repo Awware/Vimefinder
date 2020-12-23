@@ -42,7 +42,7 @@ export default {
     }
   },
   computed: mapGetters(['user']),
-  async mounted() {
+  async created() {
     await this.getSession(this.user.id)
     await this.getFriends(this.user.id)
     this.loading = false

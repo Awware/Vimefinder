@@ -42,7 +42,7 @@ import FriendsTab from '@/components/tabs/FriendsTab'
 import StatisticTab from '@/components/tabs/StatisticTab'
 import GuildTab from '@/components/tabs/GuildTab'
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -66,41 +66,39 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['user']),
-    getFullPath() {
-      return this.$route.path
-    },
+    ...mapGetters(['user', '_tabIndex']),
     tabIndex: {
       get() {
-        return this.$store.getters.tabIndex
+        return this.tabIndexGetter
       },
       set(value) {
-        this.$store.commit('setTabIndex', value)
+        this.setTabIndex(value)
       }
     }
   },
   methods: {
+    ...mapActions(['getUser']),
+    ...mapMutations(['setTabIndex', 'clearUser', 'setDefaultIndex']),
     async update() {
       this.loading = true
       this.error = ''
 
       this.username = this.$route.params.username
 
-      await this.$store.dispatch('getUser', this.username)
+      await this.getUser(this.username)
+
       if (!this.user) this.error = 'Игрок не найден!'
       this.loading = false
     }
   },
   beforeDestroy() {
-    this.$store.commit('clearUser')
-    this.$store.commit('setDefaultTabIndex')
+    this.clearUser()
+    this.setDefaultIndex()
   },
   watch: {
-    async getFullPath() {
-      await this.update()
-    }
+    $route: 'update'
   },
-  async mounted() {
+  async created() {
     await this.update()
   }
 }
