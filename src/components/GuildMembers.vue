@@ -5,7 +5,8 @@
       <hr />
     </b-card-title>
     <b-card-body style="padding: 0;" class="scrollable">
-      <b-row class="justify-content-center mb-1" v-cloak>
+      <Loader v-if="loading" />
+      <b-row v-else class="justify-content-center mb-1" v-cloak>
         <Person
           v-for="person in members"
           pWidth="9rem"
@@ -21,6 +22,11 @@
 <script>
 import Person from '@/components/single/Person'
 export default {
+  computed: {
+    loading() {
+      return this.members == undefined
+    }
+  },
   components: {
     Person
   },

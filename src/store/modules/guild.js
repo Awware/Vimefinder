@@ -3,14 +3,14 @@ import { getSessionsByIds, getGuildById } from '@/utils/vimerequests'
 export default {
   state: {
     guild: {},
-    members: {}
+    members: void 0
   },
   mutations: {
     setMembers(state, members) {
       state.members = members
     },
     clearMembers(state) {
-      state.members = {}
+      state.members = void 0
     },
     setGuild(state, guild) {
       state.guild = guild

@@ -5,6 +5,7 @@
       <span class="font-weight-bold" :style="STYLE_rank"> {{ usr.rank }} </span
       >] {{ usr.username }} | {{ usr.lvl }}lvl</span
     >
+    <!-- Change that -->
     <b-progress
       max="1"
       height="18px"

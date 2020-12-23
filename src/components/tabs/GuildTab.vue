@@ -22,7 +22,7 @@ export default {
     ...mapMutations(['clearGuild', 'clearMembers'])
   },
   computed: mapGetters(['guild', 'members']),
-  async mounted() {
+  async created() {
     await this.getGuildAndMembers(this.guildID)
   },
   beforeDestroy() {
