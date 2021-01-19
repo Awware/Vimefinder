@@ -9,7 +9,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    error: null
+    error: null,
+    success: null
   },
   mutations: {
     setError(state, error) {
@@ -17,10 +18,17 @@ export default new Vuex.Store({
     },
     clearError(state) {
       state.error = null
+    },
+    setSuccess(state, suc) {
+      state.success = suc
+    },
+    clearSuccess(state) {
+      state.success = null
     }
   },
   getters: {
-    error: s => s.error
+    error: s => s.error,
+    success: s => s.success
   },
   modules: { partyfinder, user, tabs, auth }
 })

@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import Loader from '@/components/single/Loader'
 
+import VueCookies from 'vue-cookies'
+
 import Vuelidate from 'vuelidate'
 
 // import firebase from 'firebase/app'
@@ -17,6 +19,7 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(Vuelidate)
+Vue.use(VueCookies)
 
 Vue.component('Loader', Loader)
 

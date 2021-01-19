@@ -10,6 +10,8 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+
 import EmptyLayout from '@/layouts/EmptyLayout'
 import MainLayout from '@/layouts/MainLayout'
 export default {
@@ -17,7 +19,39 @@ export default {
   computed: {
     layout() {
       return (this.$route.meta.layout || 'empty') + '-layout'
+    },
+    ...mapGetters(['error', 'success'])
+  },
+  methods: {
+    ...mapMutations(['clearError', 'clearSuccess']),
+    ...mapActions(['returnToSession'])
+  },
+  watch: {
+    error(err) {
+      this.$bvToast.toast(err, {
+        title: `Ошибка`,
+        variant: 'danger',
+        solid: true
+      })
+      this.clearError()
+    },
+    success(suc) {
+      this.$bvToast.toast(suc, {
+        title: `Успешно`,
+        variant: 'success',
+        solid: true
+      })
+      this.clearSuccess()
     }
+  },
+  async created() {
+    console.log('Session Token: ', this.$cookies.get('session'))
+    if (this.$cookies.isKey('session'))
+      this.returnToSession(this.$cookies.get('session'))
+  },
+  beforeDestroy() {
+    this.clearError()
+    this.clearSuccess()
   },
   components: { EmptyLayout, MainLayout }
 }

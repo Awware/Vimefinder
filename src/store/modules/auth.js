@@ -1,4 +1,4 @@
-import { authUser } from '@/utils/vimerequests'
+import { authUser, authBySession } from '@/utils/vimerequests'
 export default {
   state: {
     authUser: null
@@ -12,11 +12,37 @@ export default {
     }
   },
   actions: {
-    async auth({ commit }, { login, password }) {
+    async returnToSession({ commit }, session) {
       try {
-        const authResp = await authUser(login, password)
-        if (authResp) commit('setAuthUser', authResp)
-        else commit('setError', 'Возможно некоторые данные были некорректны')
+        console.log(session)
+        const usr = await authBySession(session)
+        if (!usr.expiredOrNotFound) {
+          commit('setAuthUser', {
+            username: usr.username,
+            id: usr.id
+          })
+          commit('setSuccess', 'Сессия успешно восстановлена!')
+        } else {
+          commit('setError', 'Сессия устарела или была не найдена!')
+        }
+      } catch {
+        commit('setError', 'Сессия устарела или была не найдена!')
+      }
+    },
+    async auth({ commit }, { apiKey, password }) {
+      try {
+        const authResp = await authUser(apiKey, password)
+
+        if (authResp.done) {
+          commit('setAuthUser', {
+            username: authResp.username,
+            id: authResp.id,
+            token: authResp.token
+          })
+        }
+
+        const type = authResp.done ? 'setSuccess' : 'setError'
+        commit(type, authResp.message)
       } catch {
         commit('setError', 'Что-то пошло не так')
       }

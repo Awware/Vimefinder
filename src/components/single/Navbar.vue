@@ -32,7 +32,8 @@
             />
           </svg>
         </b-button>
-        <b-button variant="outline-primary" to="/login">
+        <p v-if="authUser">{{ authUser.username }}</p>
+        <b-button v-else variant="outline-primary" to="/login">
           <svg
             width="1em"
             height="1em"
@@ -53,8 +54,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
+    ...mapGetters(['authUser']),
     maySearch() {
       return this.search.trim() && !this.search.includes(' ')
     }

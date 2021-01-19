@@ -19,10 +19,16 @@ export async function getSessionsByIds(ids, limit = 49) {
 }
 
 //Authorization
-export async function authUser(login, password) {
-  return await request(`http://localhost:5000/maintenance/user`, 'POST', {
-    login,
+export async function authUser(apiKey, password) {
+  return await request(`http://localhost:5000/maintenance/auth`, 'POST', {
+    apiKey,
     password
+  })
+}
+
+export async function authBySession(session) {
+  return await request('http://localhost:5000/maintenance/session', 'POST', {
+    token: session
   })
 }
 //End authorization

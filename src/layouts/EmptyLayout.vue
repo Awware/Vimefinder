@@ -3,19 +3,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
-  name: 'empty-layout',
-  computed: mapGetters(['error']),
-  watch: {
-    error(err) {
-      this.$bvToast.toast(err, {
-        title: `Ошибка`,
-        variant: 'danger',
-        solid: true
-      })
-    }
-  }
+  name: 'empty-layout'
 }
 </script>
 
