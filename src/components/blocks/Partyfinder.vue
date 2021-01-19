@@ -21,7 +21,7 @@
         />
       </div>
       <p v-else-if="partyMessage" class="text-center" style="color: #9A5364">
-        {{ partyMessage ? partyMessage : 'Неизвестная ошибка!' }}
+        {{ partyMessage || 'Неизвестная ошибка!' }}
       </p>
       <p v-else class="text-center" style="color: #6894dd">
         Нажми на кнопку ниже

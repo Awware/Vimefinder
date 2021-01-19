@@ -5,16 +5,27 @@ export async function getSessionsByIds(ids, limit = 49) {
     let len = ids.length
     while (len > 0) {
       const en = len >= limit ? ids.splice(0, limit) : ids.splice(0, len)
-      if (len >= limit) len -= limit
-      else len = 0
-      sessions = sessions.concat(
+      len >= limit ? (len -= limit) : (len = 0)
+      sessions.push(
         await request(`http://localhost:5000/api/user/session/${en.join()}`)
       )
+      // sessions = sessions.concat(
+      //   await request(`http://localhost:5000/api/user/session/${en.join()}`)
+      // )
     }
   } else
     return await request(`http://localhost:5000/api/user/session/${ids.join()}`)
   return sessions
 }
+
+//Authorization
+export async function authUser(login, password) {
+  return await request(`http://localhost:5000/maintenance/user`, 'POST', {
+    login,
+    password
+  })
+}
+//End authorization
 
 export async function getRawUser(username) {
   return await request(`http://localhost:5000/api/user/${username}`)

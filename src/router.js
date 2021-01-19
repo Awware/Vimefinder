@@ -26,13 +26,13 @@ export default new Router({
         layout: 'empty'
       },
       component: () => import('@/views/Login')
-    },
-    {
-      path: '/register',
-      meta: {
-        layout: 'empty'
-      },
-      component: () => import('@/views/Register')
     }
+    // {
+    //   path: '/register',
+    //   meta: {
+    //     layout: 'empty'
+    //   },
+    //   component: () => import('@/views/Register')
+    // }
   ]
 })
