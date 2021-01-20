@@ -24,23 +24,25 @@ export default {
   },
   methods: {
     ...mapMutations(['clearError', 'clearSuccess']),
-    ...mapActions(['returnToSession'])
+    ...mapActions(['returnToSession']),
+    toast(title, variant, msg) {
+      this.$bvToast.toast(msg, {
+        title,
+        variant,
+        solid: true,
+        autoHideDelay: 5000,
+        appendToast: true,
+        toaster: 'b-toaster-bottom-right'
+      })
+    }
   },
   watch: {
     error(err) {
-      this.$bvToast.toast(err, {
-        title: `Ошибка`,
-        variant: 'danger',
-        solid: true
-      })
+      this.toast('Ошибка', 'danger', err)
       this.clearError()
     },
     success(suc) {
-      this.$bvToast.toast(suc, {
-        title: `Успешно`,
-        variant: 'success',
-        solid: true
-      })
+      this.toast('Успешно', 'success', suc)
       this.clearSuccess()
     }
   },

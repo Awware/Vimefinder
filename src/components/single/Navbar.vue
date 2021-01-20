@@ -32,7 +32,19 @@
             />
           </svg>
         </b-button>
-        <p v-if="authUser">{{ authUser.username }}</p>
+        <b-dropdown
+          class="ml-1"
+          v-if="authUser"
+          id="dropdown-offset"
+          offset="25"
+          variant="outline-primary"
+          :text="authUser.username"
+        >
+          <b-dropdown-item href="/profile">Профиль</b-dropdown-item>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-item @click="logoutAcc()">Выйти</b-dropdown-item>
+        </b-dropdown>
+        <!-- <p v-if="authUser">{{ authUser.username }}</p> -->
         <b-button v-else variant="outline-primary" to="/login">
           <svg
             width="1em"
@@ -54,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters(['authUser']),
@@ -63,9 +75,16 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['setSuccess']),
+    ...mapActions(['logout']),
     redirectByEnter() {
       this.$router.push('/user/' + this.search)
       this.search = ''
+    },
+    async logoutAcc() {
+      await this.logout()
+      this.$cookies.remove('session')
+      this.setSuccess('Вы вышли с аккаунта')
     }
   },
   data() {

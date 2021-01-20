@@ -1,4 +1,4 @@
-import { authUser, authBySession } from '@/utils/vimerequests'
+import { authUser, authBySession, logoutAuthUser } from '@/utils/vimerequests'
 export default {
   state: {
     authUser: null
@@ -12,6 +12,10 @@ export default {
     }
   },
   actions: {
+    async logout({ commit }, session) {
+      commit('clearAuthUser')
+      await logoutAuthUser(session)
+    },
     async returnToSession({ commit }, session) {
       try {
         console.log(session)
@@ -26,7 +30,7 @@ export default {
           commit('setError', 'Сессия устарела или была не найдена!')
         }
       } catch {
-        commit('setError', 'Сессия устарела или была не найдена!')
+        commit('setError', 'Что-то пошло не так.')
       }
     },
     async auth({ commit }, { apiKey, password }) {

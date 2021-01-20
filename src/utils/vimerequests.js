@@ -31,6 +31,12 @@ export async function authBySession(session) {
     token: session
   })
 }
+
+export async function logoutAuthUser(session) {
+  return await request('http://localhost:5000/maintenance/logout', 'POST', {
+    token: session
+  })
+}
 //End authorization
 
 export async function getRawUser(username) {
