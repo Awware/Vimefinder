@@ -40,9 +40,9 @@
           variant="outline-primary"
           :text="authUser.username"
         >
-          <b-dropdown-item href="/profile">Профиль</b-dropdown-item>
+          <b-dropdown-item to="/profile">Профиль</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item @click="logoutAcc()">Выйти</b-dropdown-item>
+          <b-dropdown-item @click="logoutAcc()" to="/">Выйти</b-dropdown-item>
         </b-dropdown>
         <!-- <p v-if="authUser">{{ authUser.username }}</p> -->
         <b-button v-else variant="outline-primary" to="/login">
@@ -82,8 +82,7 @@ export default {
       this.search = ''
     },
     async logoutAcc() {
-      await this.logout()
-      this.$cookies.remove('session')
+      await this.logout(this.authUser.token)
       this.setSuccess('Вы вышли с аккаунта')
     }
   },

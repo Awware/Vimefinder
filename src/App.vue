@@ -20,7 +20,7 @@ export default {
     layout() {
       return (this.$route.meta.layout || 'empty') + '-layout'
     },
-    ...mapGetters(['error', 'success'])
+    ...mapGetters(['error', 'success', 'authUser'])
   },
   methods: {
     ...mapMutations(['clearError', 'clearSuccess']),
@@ -46,11 +46,11 @@ export default {
       this.clearSuccess()
     }
   },
-  async created() {
-    console.log('Session Token: ', this.$cookies.get('session'))
-    if (this.$cookies.isKey('session'))
-      this.returnToSession(this.$cookies.get('session'))
-  },
+  // async created() {
+  //   //console.log('Session Token: ', this.$cookies.get('session'))
+  //   if (this.$cookies.isKey('session') && !this.authUser)
+  //     await this.returnToSession(this.$cookies.get('session'))
+  // },
   beforeDestroy() {
     this.clearError()
     this.clearSuccess()

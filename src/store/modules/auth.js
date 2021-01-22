@@ -1,4 +1,6 @@
 import { authUser, authBySession, logoutAuthUser } from '@/utils/vimerequests'
+import Vue from 'vue'
+import router from '@/router'
 export default {
   state: {
     authUser: null
@@ -14,20 +16,24 @@ export default {
   actions: {
     async logout({ commit }, session) {
       commit('clearAuthUser')
+      Vue.$cookies.remove('session')
+      //console.log('Session Token: ', session)
       await logoutAuthUser(session)
     },
     async returnToSession({ commit }, session) {
       try {
-        console.log(session)
+        // console.log('Session: ' + session)
         const usr = await authBySession(session)
         if (!usr.expiredOrNotFound) {
           commit('setAuthUser', {
             username: usr.username,
-            id: usr.id
+            id: usr.userid,
+            permission: usr.permission,
+            token: session
           })
-          commit('setSuccess', 'Сессия успешно восстановлена!')
         } else {
           commit('setError', 'Сессия устарела или была не найдена!')
+          Vue.$cookies.remove('session')
         }
       } catch {
         commit('setError', 'Что-то пошло не так.')
@@ -40,10 +46,14 @@ export default {
         if (authResp.done) {
           commit('setAuthUser', {
             username: authResp.username,
-            id: authResp.id,
+            id: authResp.userid,
+            permission: authResp.permission,
             token: authResp.token
           })
         }
+
+        Vue.$cookies.set('session', authResp.token, '15d')
+        router.push('/')
 
         const type = authResp.done ? 'setSuccess' : 'setError'
         commit(type, authResp.message)

@@ -21,6 +21,16 @@
                 id="input-apikey-feedback"
                 >Поле не может быть пустым
               </b-form-invalid-feedback>
+              <b-form-invalid-feedback
+                v-if="$v.form.apikey.$dirty && !$v.form.apikey.minLength"
+                id="input-apikey-feedback"
+                >Поле не может быть короче 32 символа
+              </b-form-invalid-feedback>
+              <b-form-invalid-feedback
+                v-if="$v.form.apikey.$dirty && !$v.form.apikey.maxLength"
+                id="input-apikey-feedback"
+                >Поле не может быть длинше 32 символов
+              </b-form-invalid-feedback>
             </b-form-group>
             <b-form-group>
               <b-form-input
@@ -43,21 +53,29 @@
               </b-form-invalid-feedback>
             </b-form-group>
             <div class="d-flex justify-content-center mt-3">
-              <b-button type="submit" variant="primary" :disabled="loading">{{
-                btnSubmit
-              }}</b-button>
+              <b-button
+                type="submit"
+                class="mb-2 mt-2"
+                style="width: 120px;"
+                variant="outline-primary"
+                :disabled="loading"
+                >{{ btnSubmit }}</b-button
+              >
             </div>
           </b-form>
         </b-card>
       </b-col>
       <b-col>
-        <b-alert variant="success" style="max-width: 350px; height: auto" show
+        <b-alert variant="info" style="max-width: 350px; height: auto" show
           >ApiKey можно получить, введя команду на сервере /api auth</b-alert
         >
 
-        <b-alert variant="success" style="max-width: 350px; height: auto" show
+        <b-alert variant="info" style="max-width: 350px; height: auto" show
           >Первый вход возможен без пароля, в дальнейшем его можно установить в
           личном кабинете</b-alert
+        >
+        <b-button variant="outline-dark" to="/" block
+          >Вернуться на главную</b-button
         >
       </b-col>
     </b-row>
@@ -65,14 +83,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
   mixins: [validationMixin],
   validations: {
     form: {
-      apikey: { required },
+      apikey: { required, minLength: minLength(31), maxLength: maxLength(33) },
       password: {}
     }
   },
@@ -86,13 +104,13 @@ export default {
       loading: false
     }
   },
-  computed: mapGetters(['authUser']),
-  watch: {
-    authUser(newAuthUser) {
-      this.$cookies.set('session', newAuthUser.token, '15d')
-      this.$router.push('/')
-    }
-  },
+  // computed: mapGetters(['authUser']),
+  // watch: {
+  //   authUser(newAuthUser) {
+  //     this.$cookies.set('session', newAuthUser.token, '15d')
+  //     this.$router.push('/')
+  //   }
+  // },
   methods: {
     ...mapActions(['auth', 'returnToSession']),
     validateState(name) {
