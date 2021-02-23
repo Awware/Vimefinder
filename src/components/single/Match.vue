@@ -54,20 +54,14 @@ export default {
         if (this.match.state === 1) return '#7BBD4F'
         else if (this.match.state === 0) return '#D15252'
         else return '#CAC959'
-      } else {
-        if (this.match.win) return '#7BBD4F'
-        else return '#D15252'
-      }
+      } else return this.match.win ? '#7BBD4F' : '#D15252'
     },
     statusTitle() {
       if (this.match.state) {
         if (this.match.state === 1) return 'Победа'
         else if (this.match.state === 0) return 'Поражение'
         else return 'Ничья'
-      } else {
-        if (this.match.win) return 'Победа'
-        else return 'Поражение'
-      }
+      } else return this.match.win ? 'Победа' : 'Поражение'
     }
   },
   filters: {

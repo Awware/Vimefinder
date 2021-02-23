@@ -46,11 +46,6 @@ export default {
       this.clearSuccess()
     }
   },
-  // async created() {
-  //   //console.log('Session Token: ', this.$cookies.get('session'))
-  //   if (this.$cookies.isKey('session') && !this.authUser)
-  //     await this.returnToSession(this.$cookies.get('session'))
-  // },
   beforeDestroy() {
     this.clearError()
     this.clearSuccess()
