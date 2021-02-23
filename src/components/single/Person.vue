@@ -2,9 +2,7 @@
   <b-card class="cardPerson" :style="cardStyle">
     <b-card-body style="padding: 0">
       <p :style="online" class="online-status">*</p>
-      <div
-        style="display:flex; justify-content: center; align-items:center; margin-bottom:3px"
-      >
+      <div class="face-wrapper">
         <Face
           :username="person.username"
           faceWidth="32px"
@@ -26,11 +24,10 @@
 </template>
 
 <script>
-import Face from '@/components/blocks/additional/Face'
 import { GetColorByRank } from '@/utils/coloring'
 export default {
   components: {
-    Face
+    Face: () => import('@/components/blocks/additional/Face')
   },
   data() {
     return {
@@ -80,10 +77,10 @@ export default {
     this.style_color = GetColorByRank(this.person.rank, this.style_color)
 
     if (this.guildCompat) {
-      if (this.person.status == 'OFFICER') {
+      if (this.person.status === 'OFFICER') {
         this.cardStyle.backgroundColor = 'rgba(75, 96, 163, 0.1)'
         this.cardStyle.border = '2px dotted #4B60A3'
-      } else if (this.person.status == 'LEADER') {
+      } else if (this.person.status === 'LEADER') {
         this.cardStyle.backgroundColor = 'rgba(163, 75, 94, 0.1)'
         this.cardStyle.border = '4px dotted #A34B5E'
       }
@@ -98,6 +95,14 @@ export default {
   color: #888888;
   font-weight: bold;
 }
+
+.face-wrapper{
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  margin-bottom:3px
+}
+
 .online-status {
   position: absolute;
   right: 0;
