@@ -54,7 +54,7 @@ export default {
       default: '9'
     }
   },
-  mounted() {
+  created(){
     preload(`https://skin.vimeworld.ru/head/${this.username}.png?_=16057785`)
     preload(
       `https://skin.vimeworld.ru/raw/skin/${this.username}.png?_=16057785`,
