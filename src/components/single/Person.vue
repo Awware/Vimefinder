@@ -71,9 +71,7 @@ export default {
     }
 
     //?
-    if (this.person.username.length <= 12) {
-      this.style_color.fontSize = '13px'
-    }
+    if (this.person.username.length <= 12) this.style_color.fontSize = '13px'
     this.style_color = GetColorByRank(this.person.rank, this.style_color)
 
     if (this.guildCompat) {
