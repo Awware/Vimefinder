@@ -50,11 +50,9 @@ export default {
             permission: authResp.permission,
             token: authResp.token
           })
+          Vue.$cookies.set('session', authResp.token, '15d')
+          router.push('/')
         }
-
-        Vue.$cookies.set('session', authResp.token, '15d')
-        router.push('/')
-
         const type = authResp.done ? 'setSuccess' : 'setError'
         commit(type, authResp.message)
       } catch {

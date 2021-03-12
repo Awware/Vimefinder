@@ -18,8 +18,7 @@
             <b-tab
               v-show="authUser.permission === 1"
               class="scrollable"
-              title="Администрирование"
-            >
+              title="Администрирование">
             </b-tab>
           </b-tabs>
         </b-card>

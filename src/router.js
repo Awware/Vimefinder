@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import store from '@/store'
-import cookies from 'vue-cookies'
+import Vue          from 'vue'
+import Router       from 'vue-router'
+import store        from '@/store'
+import cookies      from 'vue-cookies'
 
 Vue.use(Router)
 
@@ -47,7 +47,7 @@ router.beforeEach(async (to, from, next) => {
   if (cookies.isKey('session') && !store.getters['authUser']) {
     await store.dispatch('returnToSession', cookies.get('session'))
   }
-  if (to.name == 'Profile' && !store.getters['authUser']) {
+  if (to.name === 'Profile' && !store.getters['authUser']) {
     next('/login')
   } else next()
 })
